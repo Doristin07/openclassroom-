@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
             String meetingPlace=data.getStringExtra(AddMeetingActivity.BUNDLE_EXTRA_PLACE);
             String participants=data.getStringExtra(AddMeetingActivity.BUNDLE_EXTRA_PARTICIPANTS);
 
-            meetings.add(meetingPlace);
+            meetings.add(participants);
 
 
 
