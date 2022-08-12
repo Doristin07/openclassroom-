@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.reunion.AddMeetingActivity"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/Meeting_info_Texview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Entrez les informations"
+        android:layout_margin="16dp"
+        android:padding="8dp"
+        android:layout_gravity="center_horizontal"/>
+    <EditText
+        android:id="@+id/Meeting_Subject"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="50dp"
+        android:hint="Sujet de la reunion"/>
+
+    <EditText
+        android:id="@+id/Meeting_Place"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="50dp"
+        android:layout_marginStart="16dp"
+        android:hint="Lieu de la reunion"/>
+
+    <EditText
+        android:id="@+id/Meeting_Participant"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="58dp"
+        android:layout_marginStart="16dp"
+        android:hint="Email des participants"/>
+
+
+    <Button
+        android:id="@+id/Save_Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="16dp"
+        android:text="Save" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>
