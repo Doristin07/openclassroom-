@@ -3,27 +3,33 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent">
 
-
-    <TextView
-        android:id="@+id/greeting"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerInParent="true"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:gravity="end"
-        android:padding="8dp"
-        android:text="Welcome there is no meeting yet, click to add!" />
+        android:layout_height="wrap_content">
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/meeting_view"
+            />
+
+    </LinearLayout>
+
+
+
 
     <Button
         android:id="@+id/Add_Button"
-        android:layout_width="wrap_content"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginRight="25dp"
         android:layout_marginBottom="69dp"
-        android:text="Add meeting" />
+        android:text="Add"
+        />
+
+
 
 
 </RelativeLayout>
+

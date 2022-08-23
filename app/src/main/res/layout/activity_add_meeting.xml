@@ -7,14 +7,30 @@
     tools:context="com.example.reunion.AddMeetingActivity"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/Meeting_info_Texview"
-        android:layout_width="wrap_content"
+
+
+    <Spinner
+        android:id="@+id/room_spinner"
+        android:hint="Room number"
+        android:layout_width="400dp"
         android:layout_height="wrap_content"
-        android:text="Entrez les informations"
-        android:layout_margin="16dp"
-        android:padding="8dp"
-        android:layout_gravity="center_horizontal"/>
+        android:inputType="text"
+        android:cursorVisible="false"
+        android:textSize="20sp"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="67dp"
+        android:layout_marginEnd="16dp"/>
+
+    <View
+        android:layout_width="350dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_height="2dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginBottom="50dp"/>
+
+
     <EditText
         android:id="@+id/Meeting_Subject"
         android:layout_width="350dp"
@@ -22,16 +38,27 @@
         android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="50dp"
-        android:hint="Sujet de la reunion"/>
+        android:hint="Meeting topic"/>
 
     <EditText
-        android:id="@+id/Meeting_Place"
+        android:id="@+id/meeting_date"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="50dp"
         android:layout_marginStart="16dp"
-        android:hint="Lieu de la reunion"/>
+        android:hint="Date"
+        android:focusableInTouchMode="true"/>
+
+    <EditText
+        android:id="@+id/meeting_time"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="50dp"
+        android:hint="Time"/>
+
 
     <EditText
         android:id="@+id/Meeting_Participant"
@@ -40,7 +67,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginBottom="58dp"
         android:layout_marginStart="16dp"
-        android:hint="Email des participants"/>
+        android:hint=" Participants' list"/>
 
 
     <Button

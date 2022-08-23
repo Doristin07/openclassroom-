@@ -3,8 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Doristin Samuel/AndroidStudioProjects/Reunion/app/src/main/res/drawable/circle_button.xml" value="0.1785" />
+        <entry key="..\:/Users/Doristin Samuel/AndroidStudioProjects/Reunion/app/src/main/res/drawable/delete_item.xml" value="0.138" />
+        <entry key="..\:/Users/Doristin Samuel/AndroidStudioProjects/Reunion/app/src/main/res/drawable/expand_more_black_24dp.xml" value="0.129" />
+        <entry key="..\:/Users/Doristin Samuel/AndroidStudioProjects/Reunion/app/src/main/res/drawable/ic_add_item.xml" value="0.138" />
+        <entry key="..\:/Users/Doristin Samuel/AndroidStudioProjects/Reunion/app/src/main/res/drawable/ic_filter_item.xml" value="0.138" />
+        <entry key="..\:/Users/Doristin Samuel/AndroidStudioProjects/Reunion/app/src/main/res/drawable/ic_launcher_background.xml" value="0.138" />
+        <entry key="..\:/Users/Doristin Samuel/AndroidStudioProjects/Reunion/app/src/main/res/drawable/room_item.xml" value="0.129" />
         <entry key="..\:/Users/Doristin Samuel/AndroidStudioProjects/Reunion/app/src/main/res/layout/activity_add_meeting.xml" value="0.2871376811594203" />
-        <entry key="..\:/Users/Doristin Samuel/AndroidStudioProjects/Reunion/app/src/main/res/layout/activity_main.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/Doristin Samuel/AndroidStudioProjects/Reunion/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/Doristin Samuel/AndroidStudioProjects/Reunion/app/src/main/res/layout/item_view.xml" value="0.30364583333333334" />
+        <entry key="..\:/Users/Doristin Samuel/AndroidStudioProjects/Reunion/app/src/main/res/layout/meeting_view.xml" value="0.14817629179331307" />
+        <entry key="..\:/Users/Doristin Samuel/AndroidStudioProjects/Reunion/app/src/main/res/layout/room_item.xml" value="0.14817629179331307" />
+        <entry key="..\:/Users/Doristin Samuel/AndroidStudioProjects/Reunion/app/src/main/res/layout/room_numbers.xml" value="0.14766970618034447" />
+        <entry key="..\:/Users/Doristin Samuel/AndroidStudioProjects/Reunion/app/src/main/res/layout/single_recyclerview_item.xml" value="0.22" />
       </map>
     </option>
   </component>

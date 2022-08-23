@@ -6,8 +6,19 @@ public class Reunion {
 
     private int mMeetingTime;
     private List<String> emails;
-    private String mMeetingPlace;
+    private String mMeetingRoom;
     private String mMeetingSubject;
+
+
+    public Reunion(String meetingSubject, String meetingRoom, int meetingTime, List<String> emails) {
+        mMeetingTime = meetingTime;
+        this.emails = emails;
+        mMeetingRoom = meetingRoom;
+        mMeetingSubject = meetingSubject;
+    }
+
+    public Reunion(String meetingRoom, String s, String stringExtra) {
+    }
 
     public int getMeetingTime() {
         return mMeetingTime;
@@ -25,12 +36,12 @@ public class Reunion {
         this.emails = participants;
     }
 
-    public String getMeetingPlace() {
-        return mMeetingPlace;
+    public String getMeetingRoom() {
+        return mMeetingRoom;
     }
 
-    public void setMeetingPlace(String mMeetingPlace) {
-        this.mMeetingPlace = mMeetingPlace;
+    public void setMeetingRoom(String mMeetingPlace) {
+        this.mMeetingRoom= mMeetingPlace;
     }
 
     public String getMeetingSubject() {
