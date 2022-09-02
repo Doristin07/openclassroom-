@@ -35,6 +35,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 import model.Reunion;
 
@@ -50,12 +51,13 @@ public class AddMeetingActivity extends AppCompatActivity {
     private Button msaveButton;
     private static final int REQUEST_CODE_ADDMEETING=50;
     public String mSubject;
-    public String mdate;
     public String mparticipants;
     public EditText mmeetingTimeEditText;
-    public Spinner roomNumer;
+    public Spinner roomNumber;
     public Boolean merror;
-
+    private String emailInput;
+    private String mroom;
+    private String mtime;
 
 
     @Override
@@ -68,18 +70,20 @@ public class AddMeetingActivity extends AppCompatActivity {
         msaveButton=findViewById(R.id.Save_Button);
         mmeetingTimeEditText=findViewById(R.id.meeting_time);
 
-        roomNumer=(Spinner)findViewById(R.id.room_spinner) ;
+        roomNumber=(Spinner)findViewById(R.id.room_spinner) ;
 
 
         //set an adapter to the spinner
         String[] roomNumbers=getResources().getStringArray(R.array.room_numbers);
         ArrayAdapter roomAdapter=new ArrayAdapter(this, android.R.layout.simple_spinner_item,roomNumbers);
         roomAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        roomNumer.setAdapter(roomAdapter);
+        roomNumber.setAdapter(roomAdapter);
 
         mmeetingTimeEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                validateEmail(mparticipantsEditText);
 
                 Calendar calendar = Calendar.getInstance();
                 int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
@@ -159,21 +163,25 @@ public class AddMeetingActivity extends AppCompatActivity {
 
 
 
-
                 msaveButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         checkEditText();
 
 
-                        mdate = mmeetingDateEditText.getText().toString();
-                        mparticipants = mparticipantsEditText.getText().toString();
+                        mroom = roomNumber.getSelectedItem().toString();
+                        mSubject=msubjectEditText.getText().toString();
+                        mtime=mmeetingTimeEditText.getText().toString();
+
 
                         Intent intent = new Intent();
                         intent.putExtra(BUNDLE_EXTRA_SUBJECT, mSubject);
-                        intent.putExtra(BUNDLE_EXTRA_ROOM, mdate);
-                        intent.putExtra(BUNDLE_EXTRA_PARTICIPANTS, String.valueOf(mparticipants));
+                        intent.putExtra(BUNDLE_EXTRA_ROOM, mroom);
+                        intent.putExtra(BUNDLE_EXTRA_TIME,mtime);
                         setResult(Activity.RESULT_OK, intent);
+
+                        // failed method
+                        MainActivity.addItem(mroom,mtime,mSubject);
 
                         startActivity(new Intent(AddMeetingActivity.this,MainActivity.class));
 
@@ -185,9 +193,23 @@ public class AddMeetingActivity extends AppCompatActivity {
 
 
             }
+    private boolean validateEmail(EditText mparticipantsEditText){
+        emailInput=mparticipantsEditText.getText().toString();
+        String email_pattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
+        Pattern patterns = Pattern.compile(email_pattern, Pattern.CASE_INSENSITIVE);
 
-    public void checkEditText() {
-        if (TextUtils.isEmpty(msubjectEditText.getText().toString())){
+        if(!emailInput.isEmpty() ){
+            Toast.makeText(this,"Email is correct!",Toast.LENGTH_SHORT).show();
+            return true;
+        }else{
+            Toast.makeText(this,"Email is incorrect!",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+    }
+
+
+          public void checkEditText() {
+            if (TextUtils.isEmpty(msubjectEditText.getText().toString())){
             Toast.makeText(AddMeetingActivity.this,"Field cannot be empty",Toast.LENGTH_LONG);
             merror=true;
 

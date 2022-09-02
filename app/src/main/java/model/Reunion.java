@@ -4,53 +4,42 @@ import java.util.List;
 
 public class Reunion {
 
-    private int mMeetingTime;
-    private List<String> emails;
+    private String mMeetingTime;
     private String mMeetingRoom;
     private String mMeetingSubject;
 
 
-    public Reunion(String meetingSubject, String meetingRoom, int meetingTime, List<String> emails) {
-        mMeetingTime = meetingTime;
-        this.emails = emails;
-        mMeetingRoom = meetingRoom;
-        mMeetingSubject = meetingSubject;
+    public Reunion(String meetingRoom, String meetingTime, String meetingSubject) {
+        this.mMeetingRoom=meetingRoom;
+        this.mMeetingTime=meetingTime;
+        this.mMeetingSubject=meetingSubject;
     }
 
-    public Reunion(String meetingRoom, String s, String stringExtra) {
-    }
 
-    public int getMeetingTime() {
+    public String getMeetingTime() {
         return mMeetingTime;
     }
 
-    public void setMeetingTime(int mMeetingTime) {
-        this.mMeetingTime = mMeetingTime;
-    }
-
-    public List<String> getParticipants() {
-        return emails;
-    }
-
-    public void setParticipants(List<String> participants) {
-        this.emails = participants;
+    public void setMeetingTime(String meetingTime) {
+        mMeetingTime = meetingTime;
     }
 
     public String getMeetingRoom() {
         return mMeetingRoom;
     }
 
-    public void setMeetingRoom(String mMeetingPlace) {
-        this.mMeetingRoom= mMeetingPlace;
+    public void setMeetingRoom(String meetingRoom) {
+        mMeetingRoom = meetingRoom;
     }
 
     public String getMeetingSubject() {
         return mMeetingSubject;
     }
 
-    public void setMeetingSubject(String mMeetingSubject) {
-        this.mMeetingSubject = mMeetingSubject;
+    public void setMeetingSubject(String meetingSubject) {
+        mMeetingSubject = meetingSubject;
     }
+
 
 
 

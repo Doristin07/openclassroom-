@@ -22,11 +22,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     Context context;
     ArrayList<Reunion> mMeetings;
-    private List<Reunion> mMMeetings;
+
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
         TextView rowEmails;
         TextView rowDescription;
+        private RecyclerViewAdapter adapter;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -34,6 +36,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             rowDescription=itemView.findViewById(R.id.description);
 
         }
+        public ViewHolder linkAdapter(RecyclerViewAdapter adapter){
+            this.adapter=adapter;
+            return this;
+
+        }
+
     }
 
     public RecyclerViewAdapter(Context context, ArrayList<Reunion> mMeetings){
@@ -43,27 +51,26 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
 
+
     @NonNull
     @Override
     public RecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_recyclerview_item,parent,false);
-        return new ViewHolder(itemView);
+        return new ViewHolder(itemView).linkAdapter(this);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder holder, int position) {
-        final Reunion meeting = mMeetings.get(position);
+        Reunion meeting = mMeetings.get(position);
 
         @SuppressLint("SimpleDateFormat")
         String description = TextUtils.join(" - ", Arrays.asList(
                 meeting.getMeetingRoom(),
-                DateFormat.getTimeFormat(context).format(meeting.getMeetingTime()),
+                meeting.getMeetingTime(),
                 meeting.getMeetingSubject()));
         holder.rowDescription.setText(description);
 
-        holder.rowEmails.setText(
-                TextUtils.join(", ",
-                        meeting.getParticipants()));
+        holder.rowEmails.setText("Perfect");
     }
 
     public void addItem(int position, Reunion stud)
