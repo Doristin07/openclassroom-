@@ -1,10 +1,5 @@
 package com.example.reunion;
 
-import static com.example.reunion.AddMeetingActivity.BUNDLE_EXTRA_ROOM;
-import static com.example.reunion.AddMeetingActivity.BUNDLE_EXTRA_SUBJECT;
-import static com.example.reunion.AddMeetingActivity.BUNDLE_EXTRA_TIME;
-
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,7 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Spinner;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -23,82 +18,91 @@ import model.Reunion;
 
 public class MainActivity extends AppCompatActivity {
 
+
     public Button mAddButton;
-    private int REQUEST_CODE_ADDMEETING=50;
+    private static final int REQUEST_CODE_ADDMEETING=50;
     RecyclerView recyclerView;
-    RecyclerViewAdapter recyclerViewAdapter;
+    static RecyclerViewAdapter recyclerViewAdapter;
     RecyclerView.LayoutManager layoutManager;
-    ArrayList<Reunion> mMeetings;
+    public static ArrayList<Reunion> mMeetings;
+    public ArrayList<ArrayList<Reunion>> mMeeting;
     List<String> test;
     public String meetingSubject;
     public String meetingTime;
     public String meetingRoom;
+    TextView mTextView;
+    EditText s;
+
+
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         mAddButton = findViewById(R.id.add_button);
+        mTextView=findViewById(R.id.textview);
+        s=findViewById(R.id.Meeting_Subject);
 
         recyclerView=findViewById(R.id.meeting_view);
         recyclerView.setHasFixedSize(true);
+
+
         layoutManager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-
-        //connecting the Recyclerview
         mMeetings=new ArrayList<Reunion>();
-        recyclerViewAdapter=new RecyclerViewAdapter(this,mMeetings);
-
-        // add Default Data
-        mMeetings.add(new Reunion("Room 3","7:45 PM","Money"));
-
-
-        //add data to the recyclerview
-        mMeetings.add(new Reunion(meetingRoom, meetingTime, meetingSubject));
+        mMeeting=new ArrayList<ArrayList<Reunion>>();
+        recyclerViewAdapter=new RecyclerViewAdapter(mMeetings);
         recyclerView.setAdapter(recyclerViewAdapter);
-        recyclerViewAdapter.notifyDataSetChanged();
+
+
+        //get data from AddMeetingActivity
+        //Add them to the meeting list
+        Intent intent=getIntent();
+        Bundle bundle = intent.getExtras();
+
+        mMeetings.add(new Reunion("m,ll","nkk,","ujknj"));
+
+        if(bundle != null){
+            Bundle extras=intent.getExtras();
+            meetingSubject=extras.getString("Subject");
+            meetingTime=extras.getString("Time");
+            meetingRoom= extras.getString("Room");
+
+        }
+
 
 
 
         mAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 // The user just clicked
                 Intent addMeetingActivityIntent=new Intent(MainActivity.this, AddMeetingActivity.class);
-                startActivityForResult(addMeetingActivityIntent, REQUEST_CODE_ADDMEETING);
-
+                startActivity(addMeetingActivityIntent);
             }
         });
 
     }
 
-    public static void addItem(String meetingRoom, String meetingTime, String meetingSubject) {
+    public static void addItem(String meetingSubject, String meetingTime, String meetingRoom) {
+        mMeetings.add(new Reunion(meetingSubject,meetingTime,meetingRoom));
+        recyclerViewAdapter.notifyItemInserted(mMeetings.size() - 1);
+    }
 
-        //Failed method
+    public void updateList(List<Reunion>mMeetings){
+
 
     }
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
-            super.onActivityResult(requestCode, resultCode, data);
-
-            if (REQUEST_CODE_ADDMEETING == requestCode && RESULT_OK == resultCode && data != null) {
-
-                meetingSubject = data.getStringExtra(AddMeetingActivity.BUNDLE_EXTRA_SUBJECT);
-                meetingTime = data.getStringExtra(AddMeetingActivity.BUNDLE_EXTRA_TIME);
-                meetingRoom = data.getStringExtra(AddMeetingActivity.BUNDLE_EXTRA_ROOM);
-
-
-
-
-            }
-
-
-
-    }
 
 
 
 }
+
+
+

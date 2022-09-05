@@ -1,9 +1,6 @@
 package com.example.reunion;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.ActivityChooserView;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
@@ -12,11 +9,9 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -24,17 +19,11 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.example.reunion.R;
-import com.google.android.material.internal.TextWatcherAdapter;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
-import java.util.List;
-import java.util.Locale;
 import java.util.regex.Pattern;
 
 import model.Reunion;
@@ -50,14 +39,18 @@ public class AddMeetingActivity extends AppCompatActivity {
     private EditText mparticipantsEditText;
     private Button msaveButton;
     private static final int REQUEST_CODE_ADDMEETING=50;
-    public String mSubject;
+    public String msubject;
     public String mparticipants;
     public EditText mmeetingTimeEditText;
     public Spinner roomNumber;
-    public Boolean merror;
+    private boolean merror;
     private String emailInput;
     private String mroom;
     private String mtime;
+    private String mdate;
+    private RecyclerView recyclerView;
+    public ArrayList<Reunion> mMeetings;
+    public RecyclerViewAdapter recyclerViewAdapter;
 
 
     @Override
@@ -70,13 +63,13 @@ public class AddMeetingActivity extends AppCompatActivity {
         msaveButton=findViewById(R.id.Save_Button);
         mmeetingTimeEditText=findViewById(R.id.meeting_time);
 
-        roomNumber=(Spinner)findViewById(R.id.room_spinner) ;
+       AutoCompleteTextView roomNumber=findViewById(R.id.room_name) ;
 
 
         //set an adapter to the spinner
         String[] roomNumbers=getResources().getStringArray(R.array.room_numbers);
         ArrayAdapter roomAdapter=new ArrayAdapter(this, android.R.layout.simple_spinner_item,roomNumbers);
-        roomAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        roomAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         roomNumber.setAdapter(roomAdapter);
 
         mmeetingTimeEditText.setOnClickListener(new View.OnClickListener() {
@@ -115,6 +108,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         DatePickerDialog.OnDateSetListener date=new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+
                 calendar.set(Calendar.YEAR,year);
                 calendar.set(Calendar.MONTH, month);
                 calendar.set(Calendar.DAY_OF_MONTH,day);
@@ -142,57 +136,37 @@ public class AddMeetingActivity extends AppCompatActivity {
         });
 
 
-                msaveButton.setEnabled(false);
-                msubjectEditText.addTextChangedListener(new TextWatcher() {
-                    @Override
-                    public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
-
-                    }
-
-                    @Override
-                    public void onTextChanged(CharSequence charSequence, int start, int count, int after) {
-
-                    }
-
-                    @Override
-                    public void afterTextChanged(Editable s) {
-
-                        msaveButton.setEnabled(!s.toString().isEmpty());
-                    }
-                });
-
-
-
+                msaveButton.setEnabled(true);
                 msaveButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        checkEditText();
 
 
-                        mroom = roomNumber.getSelectedItem().toString();
-                        mSubject=msubjectEditText.getText().toString();
-                        mtime=mmeetingTimeEditText.getText().toString();
+                        mroom = "roomNumber";
+                        msubject = msubjectEditText.getText().toString();
+                        mtime = mmeetingTimeEditText.getText().toString();
+                        mdate = mmeetingDateEditText.getText().toString();
+                        mparticipants = mparticipantsEditText.getText().toString();
 
+                        Bundle  bundle=new Bundle();
+                        bundle.putString("Subject", msubject);
+                        bundle.putString("Time",mtime);
+                        bundle.putString("Room","Room 7");
 
-                        Intent intent = new Intent();
-                        intent.putExtra(BUNDLE_EXTRA_SUBJECT, mSubject);
-                        intent.putExtra(BUNDLE_EXTRA_ROOM, mroom);
-                        intent.putExtra(BUNDLE_EXTRA_TIME,mtime);
-                        setResult(Activity.RESULT_OK, intent);
+                        recyclerViewAdapter.addItem(mMeetings.size()-1,mroom,mtime,msubject);
+                        recyclerViewAdapter.notifyDataSetChanged();
 
-                        // failed method
-                        MainActivity.addItem(mroom,mtime,mSubject);
+                        Intent intent = new Intent(AddMeetingActivity.this, MainActivity.class);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                        }
 
-                        startActivity(new Intent(AddMeetingActivity.this,MainActivity.class));
-
-
-
-                    }
                 });
 
 
-
             }
+
+
     private boolean validateEmail(EditText mparticipantsEditText){
         emailInput=mparticipantsEditText.getText().toString();
         String email_pattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
@@ -208,13 +182,4 @@ public class AddMeetingActivity extends AppCompatActivity {
     }
 
 
-          public void checkEditText() {
-            if (TextUtils.isEmpty(msubjectEditText.getText().toString())){
-            Toast.makeText(AddMeetingActivity.this,"Field cannot be empty",Toast.LENGTH_LONG);
-            merror=true;
-
-        }
-    }
 }
-
-

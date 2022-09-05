@@ -44,8 +44,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     }
 
-    public RecyclerViewAdapter(Context context, ArrayList<Reunion> mMeetings){
-        this.context=context;
+    public RecyclerViewAdapter(ArrayList<Reunion> mMeetings){
+
         this.mMeetings=mMeetings;
 
     }
@@ -70,18 +70,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 meeting.getMeetingSubject()));
         holder.rowDescription.setText(description);
 
-        holder.rowEmails.setText("Perfect");
+        holder.rowEmails.setText("Fuck off");
     }
 
-    public void addItem(int position, Reunion stud)
+    public void addItem(int position,String meetingRoom,String meetingTime,String meetingSubject )
     {
-        mMeetings.add(position, stud);
+        mMeetings.add(position, new Reunion(meetingRoom,meetingTime,meetingSubject));
         notifyItemInserted(position);
     }
-    public void updateList(List<Reunion>mMeetings){
-        mMeetings=mMeetings;
-        notifyDataSetChanged();
-    }
+
 
     @Override
     public int getItemCount() {

@@ -9,26 +9,20 @@
 
 
 
-    <Spinner
-        android:id="@+id/room_spinner"
-        android:hint="Room number"
-        android:layout_width="400dp"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:cursorVisible="false"
-        android:textSize="20sp"
-        android:layout_marginTop="25dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="67dp"
-        android:layout_marginEnd="16dp"/>
+        <AutoCompleteTextView
+            android:id="@+id/room_name"
+            android:hint="Meeting room name"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:cursorVisible="false"
+            android:textSize="18sp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="50dp"
+            style="@style/Widget.AppCompat.Spinner.Underlined" />
 
-    <View
-        android:layout_width="350dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_height="2dp"
-        android:background="@android:color/darker_gray"
-        android:layout_marginBottom="50dp"/>
+
 
 
     <EditText
@@ -48,7 +42,7 @@
         android:layout_marginBottom="50dp"
         android:layout_marginStart="16dp"
         android:hint="Date"
-        android:focusableInTouchMode="true"/>
+        android:focusableInTouchMode="false"/>
 
     <EditText
         android:id="@+id/meeting_time"
@@ -57,7 +51,8 @@
         android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="50dp"
-        android:hint="Time"/>
+        android:hint="Time"
+        android:focusableInTouchMode="false"/>
 
 
     <EditText
