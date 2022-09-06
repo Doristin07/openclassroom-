@@ -6,24 +6,27 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/circle_button"
         android:layout_margin="10dp"/>
-    <LinearLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginTop="3dp">
 
         <TextView
             android:id="@+id/description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:layout_marginTop="10dp"
             android:text="Description"
+            android:textColor="@color/black"
             android:textStyle="bold"
-            android:layout_marginTop="10dp"/>
+            />
 
         <TextView
             android:id="@+id/emails"
@@ -31,8 +34,25 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="Emails"
-            android:textSize="16sp"
+            android:textColor="@color/black"
+
+            android:layout_below="@id/description"
             android:textStyle="normal" />
-    </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_delete_item"
+            android:src="@drawable/ic_delete_item"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="17dp"
+
+
+            />
+
+    </RelativeLayout>
+
+
 
 </LinearLayout>

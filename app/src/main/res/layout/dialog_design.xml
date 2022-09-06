@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    >
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_margin="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:text="Add Meeting Info"
+            android:textStyle="bold"
+            android:textSize="19sp"
+            android:textColor="@color/white"
+            android:background="@color/purple_500"
+            android:padding="10dp"
+            android:elevation="15dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+        <AutoCompleteTextView
+            android:id="@+id/room"
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/rounded_shape_backgroung"
+            android:cursorVisible="false"
+            android:hint="Meeting room name"
+            android:inputType="text"
+            android:padding="13dp"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/topic"
+            android:hint="Meeting Topic"
+            android:textSize="18sp"
+            android:background="@drawable/rounded_shape_backgroung"
+            android:padding="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/time"
+            android:hint="Meeting Time "
+            android:background="@drawable/rounded_shape_backgroung"
+            android:padding="15dp"
+            android:textSize="18sp"
+            android:focusableInTouchMode="false"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/date"
+            android:hint="Meeting Date"
+            android:inputType="textPersonName"
+            android:textSize="18sp"
+            android:background="@drawable/rounded_shape_backgroung"
+            android:padding="15dp"
+            android:focusableInTouchMode="false"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/emails"
+            android:hint="Meeting participants "
+            android:textSize="18sp"
+
+            android:background="@drawable/rounded_shape_backgroung"
+            android:padding="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

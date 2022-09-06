@@ -7,6 +7,8 @@ import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,19 +24,40 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     Context context;
     ArrayList<Reunion> mMeetings;
+    OnItemClickListener mlistener;
+
+    public interface OnItemClickListener{
+        void onDeleteClick(int position);
+
+    }
+    public void setOnItemClickListener (OnItemClickListener listener){mlistener=listener;}
 
 
-
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder{
         TextView rowEmails;
         TextView rowDescription;
-        private RecyclerViewAdapter adapter;
+        ImageView deleteImage;
+        RecyclerViewAdapter adapter;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             rowEmails=itemView.findViewById(R.id.emails);
             rowDescription=itemView.findViewById(R.id.description);
+            deleteImage=itemView.findViewById(R.id.delete);
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(mlistener!=null){
+                        int position=getAdapterPosition();
+                        if (position!=RecyclerView.NO_POSITION){
+                            mlistener.onDeleteClick(position);
+                        }
+                    }
+
+                }
+            });
         }
         public ViewHolder linkAdapter(RecyclerViewAdapter adapter){
             this.adapter=adapter;
