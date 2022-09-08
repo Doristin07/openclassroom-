@@ -153,8 +153,6 @@ public class AddMeetingActivity extends AppCompatActivity {
                         bundle.putString("Time",mtime);
                         bundle.putString("Room","Room 7");
 
-                        recyclerViewAdapter.addItem(mMeetings.size()-1,mroom,mtime,msubject);
-                        recyclerViewAdapter.notifyDataSetChanged();
 
                         Intent intent = new Intent(AddMeetingActivity.this, MainActivity.class);
                         intent.putExtras(bundle);
