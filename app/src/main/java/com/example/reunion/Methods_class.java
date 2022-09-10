@@ -62,7 +62,7 @@ public class Methods_class extends MainActivity{
         ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
         disableButton(roomEditText,topicEditText,timeEditText,dateEditText,
                 emailEditText,dialog);
-        addChip(dialog,emailEditText,context);
+        addChip(emailEditText,context);
 
         }
 
@@ -97,15 +97,8 @@ public class Methods_class extends MainActivity{
         });
 
     }
-    public static void checkEmail(EditText edit,AlertDialog dialog){
-        String email=edit.getText().toString().trim();
-        String emailpattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
-        if(!email.matches(emailpattern)){
-            edit.setError("Invalid Email!");
-            ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
-        }
 
-    }
+
     public static void timePicker(EditText timeEditText, Context cont2){
         timeEditText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,7 +143,6 @@ public class Methods_class extends MainActivity{
             }
 
             private void updateCalendar(){
-                String pattern="MM/DD/YY";
                 SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yy",
                         java.util.Locale.getDefault());
                 dateEditText.setText(dateFormat.format(calendar.getTime()));
@@ -168,15 +160,8 @@ public class Methods_class extends MainActivity{
 
     }
 
-    public static void checkError(AlertDialog dialog, String edit1, String edit2, String edit3){
-        if (edit1.isEmpty()||edit2.isEmpty()||edit3.isEmpty()){
 
-        }else{
-            ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
-        }
-
-    }
-    public static void addChip(AlertDialog dialog,EditText emailEdit,Context cont4){
+    public static void addChip(EditText emailEdit,Context cont4){
 
             emailEdit.setOnKeyListener((v, keyCode, event) -> {
                 if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
@@ -191,11 +176,6 @@ public class Methods_class extends MainActivity{
                         chipGroup.addView(chip);
                         emailEdit.setText("");}
 
-                    if (chipGroup.getChildCount()>1){
-                        ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
-                    }else{
-                        ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
-                    }
                     chip.setOnCloseIconClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -210,7 +190,6 @@ public class Methods_class extends MainActivity{
 
     }
     public static void disableButton(EditText edt1,EditText edt2,EditText edt3,EditText edt4,EditText edt5,AlertDialog dialog){
-        String emailpattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
         final TextWatcher watcher=new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -225,7 +204,7 @@ public class Methods_class extends MainActivity{
             @Override
             public void afterTextChanged(Editable editable) {
                 if (edt1.getText().toString().length()==0 || edt2.getText().toString().length()==0 || edt3.getText().toString()
-                        .length()==0 || edt4.getText().toString().length()==0 || edt5.getText().toString().length()==0 || chipGroup.getChildCount()>1){
+                        .length()==0 || edt4.getText().toString().length()==0 || chipGroup.getChildCount()<2){
 
                     ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
                 }else {
