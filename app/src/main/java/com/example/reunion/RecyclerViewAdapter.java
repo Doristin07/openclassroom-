@@ -6,8 +6,10 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,19 +23,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     Context context;
     ArrayList<Reunion> mMeetings;
-    OnItemClickListener mlistener;
-
-    public interface OnItemClickListener{
-        void onDeleteClick(int position);
-
-    }
-    public void setOnItemClickListener (OnItemClickListener listener){mlistener=listener;}
 
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView rowEmails;
         TextView rowDescription;
-        ImageView deleteImage;
+        ImageButton deleteButton;
         RecyclerViewAdapter adapter;
 
 
@@ -41,20 +36,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             super(itemView);
             rowEmails=itemView.findViewById(R.id.emails);
             rowDescription=itemView.findViewById(R.id.description);
-            deleteImage=itemView.findViewById(R.id.delete);
+            deleteButton=itemView.findViewById(R.id.delete);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(mlistener!=null){
-                        int position=getAdapterPosition();
-                        if (position!=RecyclerView.NO_POSITION){
-                            mlistener.onDeleteClick(position);
-                        }
-                    }
 
-                }
-            });
         }
         public ViewHolder linkAdapter(RecyclerViewAdapter adapter){
             this.adapter=adapter;
@@ -80,7 +64,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Reunion meeting = mMeetings.get(position);
 
         @SuppressLint("SimpleDateFormat")
@@ -92,6 +76,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         holder.rowEmails.setText(TextUtils.join(", ",
                 meeting.getParticipants()));
+        holder.deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mMeetings.remove(position);
+                notifyItemRemoved(position);
+            }
+        });
     }
 
 
