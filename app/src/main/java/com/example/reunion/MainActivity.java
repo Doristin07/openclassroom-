@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.chip.ChipGroup;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +26,7 @@ public class MainActivity extends AppCompatActivity  {
 
 
     private static ChipGroup chipGroup;
-    public Button mAddButton;
-    private static final int REQUEST_CODE_ADDMEETING=50;
+    public FloatingActionButton mAddButton;
     RecyclerView recyclerView;
     static RecyclerViewAdapter recyclerViewAdapter;
     RecyclerView.LayoutManager layoutManager;
@@ -36,9 +36,6 @@ public class MainActivity extends AppCompatActivity  {
     public String meetingSubject;
     public String meetingTime;
     public String meetingRoom;
-    TextView mTextView;
-    public static AutoCompleteTextView room;
-    Context context=MainActivity.this;
 
 
     @Override
@@ -47,8 +44,6 @@ public class MainActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_main);
 
         mAddButton = findViewById(R.id.add_button);
-        mTextView=findViewById(R.id.textview);
-
 
         recyclerView=findViewById(R.id.meeting_view);
         recyclerView.setHasFixedSize(true);
@@ -61,9 +56,6 @@ public class MainActivity extends AppCompatActivity  {
         recyclerView.setAdapter(recyclerViewAdapter);
 
 
-        if(mMeetings.size() == mMeetings.size() - 1){
-            Toast.makeText(MainActivity.this, "New Meeting Added", Toast.LENGTH_SHORT).show();
-        }
 
 
         mAddButton.setOnClickListener(new View.OnClickListener() {
@@ -73,6 +65,9 @@ public class MainActivity extends AppCompatActivity  {
                 View view=getLayoutInflater().inflate(R.layout.dialog_design,null);
                 String[] roomNumbers=getResources().getStringArray(R.array.room_numbers);
                 Methods_class.showDialog(view,context,roomNumbers);
+                if(mMeetings.size() == mMeetings.size() - 1){
+                    Toast.makeText(MainActivity.this, "New Meeting Added", Toast.LENGTH_SHORT).show();
+                }
 
 
             }

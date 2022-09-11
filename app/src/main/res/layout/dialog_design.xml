@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:gravity="center"
     >
@@ -10,9 +16,9 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_margin="16dp"
+        android:layout_margin="@dimen/layout_margin"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         >
         <TextView
             android:text="Add Meeting Info"
@@ -36,14 +42,11 @@
             <AutoCompleteTextView
                 android:id="@+id/room"
                 style="@style/Widget.AppCompat.Spinner.DropDown"
-                android:layout_width="337dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"
+               android:layout_margin="@dimen/layout_margin"
                 android:background="@drawable/rounded_shape_backgroung"
                 android:cursorVisible="false"
-                android:hint="Meeting Room Name"
                 android:inputType="text"
                 android:padding="13dp"
                 android:textSize="18sp" />
@@ -59,10 +62,7 @@
             android:padding="15dp"
             android:maxHeight="1dp"
             android:textColor="@color/black"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
+            android:layout_margin="@dimen/layout_margin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <EditText
@@ -72,13 +72,10 @@
             android:padding="15dp"
             android:textSize="18sp"
             android:focusableInTouchMode="false"
-            android:layout_marginLeft="15dp"
+            android:layout_margin="@dimen/layout_margin"
             android:cursorVisible="false"
             android:clickable="false"
             android:focusable="false"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <EditText
@@ -89,14 +86,11 @@
             android:background="@drawable/rounded_shape_backgroung"
             android:padding="15dp"
             android:focusableInTouchMode="false"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
+            android:layout_margin="@dimen/layout_margin"
             android:maxLines="1"
             android:cursorVisible="false"
             android:clickable="false"
             android:focusable="false"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <EditText
@@ -106,10 +100,7 @@
             android:maxLines="1"
             android:background="@drawable/rounded_shape_backgroung"
             android:padding="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="10dp"
+           android:layout_margin="@dimen/layout_margin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
@@ -118,9 +109,11 @@
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chip_group"
             android:layout_width="match_parent"
-            android:layout_height="223dp" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/chip_group_top_margin"/>
 
 
     </LinearLayout>
 
 </LinearLayout>
+</ScrollView>

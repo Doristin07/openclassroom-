@@ -81,6 +81,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             public void onClick(View view) {
                 mMeetings.remove(position);
                 notifyItemRemoved(position);
+
             }
         });
     }

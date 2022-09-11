@@ -14,6 +14,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -52,17 +53,20 @@ public class Methods_class extends MainActivity{
         timePicker(timeEditText,context);
         datePicker(dateEditText,context);
         setAutoCompleteTextView(room,context,roomNumbers);
-
+        room.setHint("Room Number");
 
         //set the view to dialog
         alertDialogBuilder.setView(view);
         AlertDialog dialog =alertDialogBuilder.create();
         dialog.show();
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
 
         ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
         disableButton(roomEditText,topicEditText,timeEditText,dateEditText,
                 emailEditText,dialog);
         addChip(emailEditText,context);
+
 
         }
 
@@ -86,12 +90,13 @@ public class Methods_class extends MainActivity{
                     Log.i("outside if",i+"chip="+chip.getText().toString());
                     participants.add(chip.getText().toString());
                 }
-                MainActivity.addmeeting(meetingRoom,meetingTime,meetingTopic,participants);}
+                MainActivity.addmeeting(meetingRoom,meetingTime,meetingTopic,participants);
+                Toast.makeText(cont, "New meeting added!", Toast.LENGTH_SHORT).show();}
         });
         alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
+                Toast.makeText(cont, "Adding a meeting has been abort", Toast.LENGTH_SHORT).show();
             }
 
         });
@@ -176,16 +181,18 @@ public class Methods_class extends MainActivity{
                         chipGroup.addView(chip);
                         emailEdit.setText("");}
 
-                    chip.setOnCloseIconClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            chipGroup.removeView(chip);
-                        }
-                    });
-
-
                 }
+                chip.setCheckedIconResource(R.drawable.ic_baseline_close_24);
+                chip.setCloseIconEnabled(true);
+                chip.setOnCloseIconClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        chipGroup.removeView(chip);
+                    }
+                });
+
                 return false;
+
             });
 
     }
