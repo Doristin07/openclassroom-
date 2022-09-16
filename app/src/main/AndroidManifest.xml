@@ -14,13 +14,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Reunion"
         tools:targetApi="31">
-        <activity
-            android:name=".AddMeetingActivity"
-            android:exported="false"
-            />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,3 +29,5 @@
     </application>
 
 </manifest>
+
+

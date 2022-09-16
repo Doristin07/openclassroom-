@@ -45,10 +45,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                android:layout_margin="@dimen/layout_margin"
-                android:background="@drawable/rounded_shape_backgroung"
-                android:cursorVisible="false"
                 android:clickable="false"
                 android:focusable="false"
+                android:background="@drawable/rounded_shape_backgroung"
+                android:cursorVisible="false"
                 android:inputType="text"
                 android:padding="13dp"
                 android:textSize="18sp" />

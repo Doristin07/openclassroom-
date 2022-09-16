@@ -25,6 +25,8 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
+import model.Reunion;
+
 public class Methods_class extends MainActivity{
 
     static Boolean error;
@@ -48,7 +50,7 @@ public class Methods_class extends MainActivity{
         AutoCompleteTextView room=view.findViewById(R.id.room);
         chipGroup=view.findViewById(R.id.chip_group);
 
-        setDialogButtons(context.getApplicationContext(), alertDialogBuilder,roomEditText,timeEditText,topicEditText);
+        setDialogButtons(context.getApplicationContext(), alertDialogBuilder,roomEditText,timeEditText,topicEditText,dateEditText);
 
         timePicker(timeEditText,context);
         datePicker(dateEditText,context);
@@ -64,7 +66,7 @@ public class Methods_class extends MainActivity{
 
         ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
         disableButton(roomEditText,topicEditText,timeEditText,dateEditText,
-                emailEditText,dialog);
+                emailEditText,dialog,context);
         addChip(emailEditText,context);
 
 
@@ -73,7 +75,7 @@ public class Methods_class extends MainActivity{
 
 
     public static void setDialogButtons(Context cont,AlertDialog.Builder alertDialogBuilder, EditText roomEditText,
-                                        EditText topicEditText, EditText timeEditText){
+                                        EditText topicEditText, EditText timeEditText,EditText dateEditText){
 
         //set Dialog Buttons
         alertDialogBuilder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
@@ -83,6 +85,7 @@ public class Methods_class extends MainActivity{
                 String meetingRoom=roomEditText.getText().toString();
                 String meetingTime=timeEditText.getText().toString();
                 String meetingTopic=topicEditText.getText().toString();
+                String meetingDate=dateEditText.getText().toString();
 
                 List<String>participants = new ArrayList<>();
                 for(int j=0;j<chipGroup.getChildCount();j++){
@@ -90,7 +93,7 @@ public class Methods_class extends MainActivity{
                     Log.i("outside if",i+"chip="+chip.getText().toString());
                     participants.add(chip.getText().toString());
                 }
-                MainActivity.addmeeting(meetingRoom,meetingTime,meetingTopic,participants);
+                MainActivity.addmeeting(meetingRoom,meetingTime,meetingTopic,participants,meetingDate);
                 Toast.makeText(cont, "New meeting added!", Toast.LENGTH_SHORT).show();}
         });
         alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -196,7 +199,7 @@ public class Methods_class extends MainActivity{
             });
 
     }
-    public static void disableButton(EditText edt1,EditText edt2,EditText edt3,EditText edt4,EditText edt5,AlertDialog dialog){
+    public static void disableButton(EditText edt1,EditText edt2,EditText edt3,EditText edt4,EditText edt5,AlertDialog dialog,Context context){
         final TextWatcher watcher=new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -211,13 +214,14 @@ public class Methods_class extends MainActivity{
             @Override
             public void afterTextChanged(Editable editable) {
                 if (edt1.getText().toString().length()==0 || edt2.getText().toString().length()==0 || edt3.getText().toString()
-                        .length()==0 || edt4.getText().toString().length()==0 || chipGroup.getChildCount()<2){
+                        .length()==0 || edt4.getText().toString().length()==0 || chipGroup.getChildCount()<1){
 
                     ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
                 }else {
                     ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
                 }
 
+                checkRoom(edt1,edt3,edt4,context,dialog);
 
             }
 
@@ -228,7 +232,23 @@ public class Methods_class extends MainActivity{
         edt4.addTextChangedListener(watcher);
         edt5.addTextChangedListener(watcher);
 
+
     }
+
+    public static void checkRoom(EditText edt1, EditText edt2, EditText edt3,Context context,AlertDialog dialog){
+        for(Reunion item:mMeetings){
+            if(edt1.getText().toString().equals(item.getMeetingRoom()) && edt2.getText().toString().equals(item.getMeetingTime()) &&
+                    edt3.getText().toString().equals(item.getMeetingDate())){
+                Toast.makeText(context, "This meeting room is already booked", Toast.LENGTH_SHORT).show();
+                ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                edt1.setError("Room already booked");
+
+            }else {
+                ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+            }
+        }
+    }
+
 
 }
 

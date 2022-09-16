@@ -6,6 +6,8 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,14 +18,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
 import model.Reunion;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>  {
 
     Context context;
     ArrayList<Reunion> mMeetings;
-
+    ArrayList<Reunion> mMeetingsListAll;
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView rowEmails;
@@ -51,9 +55,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public RecyclerViewAdapter(ArrayList<Reunion> mMeetings){
 
         this.mMeetings=mMeetings;
+        this.mMeetingsListAll=new ArrayList<>(mMeetings);
 
     }
-
 
 
     @NonNull
@@ -81,7 +85,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             public void onClick(View view) {
                 mMeetings.remove(position);
                 notifyItemRemoved(position);
-
             }
         });
     }
@@ -91,5 +94,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public int getItemCount() {
        return  mMeetings.size();
+    }
+
+    public void filterList(ArrayList<Reunion> filterlist) {
+        mMeetings = filterlist;
+        notifyDataSetChanged();
     }
 }

@@ -8,13 +8,16 @@ public class Reunion {
     private String mMeetingRoom;
     private String mMeetingSubject;
     private List<String> mparticipants;
+    private String mMeetingDate;
 
 
-    public Reunion(String meetingRoom, String meetingTime, String meetingSubject, List<String> participants) {
-        this.mMeetingRoom=meetingRoom;
-        this.mMeetingTime=meetingTime;
-        this.mMeetingSubject=meetingSubject;
-        this.mparticipants=participants;
+    public Reunion(String meetingRoom, String meetingTime, String meetingSubject, List<String> participants,String MeetingDate) {
+        this.mMeetingRoom = meetingRoom;
+        this.mMeetingTime = meetingTime;
+        this.mMeetingSubject = meetingSubject;
+        this.mparticipants = participants;
+        this.mMeetingDate=MeetingDate;
+
     }
 
 
@@ -48,6 +51,23 @@ public class Reunion {
 
     public void setParticipants(List<String> mparticipants) {
         this.mparticipants = mparticipants;
+    }
+
+
+    public List<String> getMparticipants() {
+        return mparticipants;
+    }
+
+    public void setMparticipants(List<String> mparticipants) {
+        this.mparticipants = mparticipants;
+    }
+
+    public String getMeetingDate() {
+        return mMeetingDate;
+    }
+
+    public void setMeetingDate(String meetingDate) {
+        mMeetingDate = meetingDate;
     }
 
 }
