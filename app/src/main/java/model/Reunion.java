@@ -1,6 +1,10 @@
 package model;
 
+import android.graphics.Color;
+
 import java.util.List;
+import java.util.Random;
+import android.graphics.Color;
 
 public class Reunion {
 
@@ -9,14 +13,22 @@ public class Reunion {
     private String mMeetingSubject;
     private List<String> mparticipants;
     private String mMeetingDate;
+    private static Random srandomColor = new Random();
+    private Integer mColor;
 
 
-    public Reunion(String meetingRoom, String meetingTime, String meetingSubject, List<String> participants,String MeetingDate) {
+    public Reunion(String meetingRoom, String meetingTime, String meetingSubject, List<String> participants, String MeetingDate) {
         this.mMeetingRoom = meetingRoom;
         this.mMeetingTime = meetingTime;
         this.mMeetingSubject = meetingSubject;
         this.mparticipants = participants;
         this.mMeetingDate=MeetingDate;
+        // Generate random color
+        mColor = Color.argb(
+                srandomColor.nextInt(255),
+                srandomColor.nextInt(255),
+                srandomColor.nextInt(255),
+                srandomColor.nextInt(255));
 
     }
 
@@ -68,6 +80,9 @@ public class Reunion {
 
     public void setMeetingDate(String meetingDate) {
         mMeetingDate = meetingDate;
+    }
+    public Integer getColor() {
+        return mColor;
     }
 
 }

@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 <LinearLayout
@@ -23,10 +21,10 @@
         <TextView
             android:text="Add Meeting Info"
             android:textStyle="bold"
-            android:textSize="19sp"
+            android:textSize="@dimen/text_size"
             android:textColor="@color/white"
             android:background="@color/purple_500"
-            android:padding="10dp"
+            android:padding="@dimen/textview_padding"
             android:elevation="15dp"
             android:layout_gravity="center"
             android:gravity="center"
@@ -50,18 +48,18 @@
                 android:clickable="false"
                 android:focusable="false"
                 android:inputType="text"
-                android:padding="13dp"
-                android:textSize="18sp" />
+                android:padding="@dimen/spinner_padding"
+                android:textSize="@dimen/text_size" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
         <EditText
             android:id="@+id/topic"
             android:hint="Meeting Topic"
-            android:textSize="18sp"
+            android:textSize="@dimen/text_size"
             android:maxLines="1"
             android:background="@drawable/rounded_shape_backgroung"
-            android:padding="15dp"
+            android:padding="@dimen/padding"
             android:maxHeight="1dp"
             android:textColor="@color/black"
             android:layout_margin="@dimen/layout_margin"
@@ -71,8 +69,8 @@
             android:id="@+id/time"
             android:hint="Meeting Time "
             android:background="@drawable/rounded_shape_backgroung"
-            android:padding="15dp"
-            android:textSize="18sp"
+            android:padding="@dimen/padding"
+            android:textSize="@dimen/text_size"
             android:focusableInTouchMode="false"
             android:layout_margin="@dimen/layout_margin"
             android:cursorVisible="false"
@@ -84,9 +82,9 @@
             android:id="@+id/date"
             android:hint="Meeting Date"
             android:inputType="textPersonName"
-            android:textSize="18sp"
+            android:textSize="@dimen/text_size"
             android:background="@drawable/rounded_shape_backgroung"
-            android:padding="15dp"
+            android:padding="@dimen/padding"
             android:focusableInTouchMode="false"
             android:layout_margin="@dimen/layout_margin"
             android:maxLines="1"
@@ -98,10 +96,10 @@
         <EditText
             android:id="@+id/emails"
             android:hint="Meeting participants "
-            android:textSize="18sp"
+            android:textSize="@dimen/text_size"
             android:maxLines="1"
             android:background="@drawable/rounded_shape_backgroung"
-            android:padding="15dp"
+            android:padding="@dimen/padding"
            android:layout_margin="@dimen/layout_margin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

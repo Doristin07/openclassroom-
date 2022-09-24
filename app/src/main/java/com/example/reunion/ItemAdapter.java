@@ -1,14 +1,11 @@
 package com.example.reunion;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.graphics.drawable.GradientDrawable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,32 +16,31 @@ import java.util.Arrays;
 
 import model.Reunion;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>  {
+public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder>  {
 
-    Context context;
-    ArrayList<Reunion> mMeetings;
+    ItemAdapter context;
+    ArrayList<Reunion> mfilteredMeetings;
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder{
         TextView rowEmails;
         TextView rowDescription;
         ImageButton deleteButton;
-        public final ImageView mCircleView;
-        RecyclerViewAdapter adapter;
+        ItemAdapter adapter;
 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             rowEmails=itemView.findViewById(R.id.emails);
-            mCircleView=itemView.findViewById(R.id.circle_item);
             rowDescription=itemView.findViewById(R.id.description);
-            itemView.findViewById(R.id.delete).setOnClickListener(view -> {
-                adapter.mMeetings.remove(getAdapterPosition());
+            deleteButton=itemView.findViewById(R.id.delete);
+            deleteButton.setOnClickListener(view -> {
+                adapter.mfilteredMeetings.remove(getAdapterPosition());
                 adapter.notifyItemRemoved(getAdapterPosition());
             });
 
 
         }
-        public ViewHolder linkAdapter(RecyclerViewAdapter adapter){
+        public ViewHolder linkAdapter(ItemAdapter adapter){
             this.adapter=adapter;
             return this;
 
@@ -52,24 +48,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     }
 
-    public RecyclerViewAdapter(ArrayList<Reunion> mMeetings){
-
-        this.mMeetings=mMeetings;
-
+    public ItemAdapter(ArrayList<Reunion> mMeetings){
+        this.mfilteredMeetings=mMeetings;
 
     }
 
 
     @NonNull
     @Override
-    public RecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
+    public ItemAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_recyclerview_item,parent,false);
         return new ViewHolder(itemView).linkAdapter(this);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        Reunion meeting = mMeetings.get(position);
+    public void onBindViewHolder(@NonNull ItemAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+        Reunion meeting = mfilteredMeetings.get(position);
 
         @SuppressLint("SimpleDateFormat")
         String description = TextUtils.join(" - ", Arrays.asList(
@@ -80,12 +74,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         holder.rowEmails.setText(TextUtils.join(", ",
                 meeting.getParticipants()));
-        ((GradientDrawable)holder.mCircleView.getBackground()).setColor(meeting.getColor());
     }
 
 
     @Override
-    public int getItemCount() {return  mMeetings.size();
+    public int getItemCount() {return  mfilteredMeetings.size();
     }
 
 

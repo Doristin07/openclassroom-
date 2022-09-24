@@ -27,8 +27,14 @@
         <entry key="..\:/Users/Doristin Samuel/AndroidStudioProjects/Reunion/app/src/main/res/layout/dialog_layout.xml" value="0.265625" />
         <entry key="..\:/Users/Doristin Samuel/AndroidStudioProjects/Reunion/app/src/main/res/layout/dropdown_layout.xml" value="0.24914529914529915" />
         <entry key="..\:/Users/Doristin Samuel/AndroidStudioProjects/Reunion/app/src/main/res/layout/filter_menu.xml" value="0.25" />
+        <entry key="..\:/Users/Doristin Samuel/AndroidStudioProjects/Reunion/app/src/main/res/layout/fragment_blank.xml" value="0.1388888888888889" />
+        <entry key="..\:/Users/Doristin Samuel/AndroidStudioProjects/Reunion/app/src/main/res/layout/fragment_item.xml" value="0.25" />
+        <entry key="..\:/Users/Doristin Samuel/AndroidStudioProjects/Reunion/app/src/main/res/layout/fragment_item_list.xml" value="0.23846153846153847" />
+        <entry key="..\:/Users/Doristin Samuel/AndroidStudioProjects/Reunion/app/src/main/res/layout/fragment_li.xml" value="0.23846153846153847" />
         <entry key="..\:/Users/Doristin Samuel/AndroidStudioProjects/Reunion/app/src/main/res/layout/fragment_login.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Doristin Samuel/AndroidStudioProjects/Reunion/app/src/main/res/layout/item_view.xml" value="0.30364583333333334" />
+        <entry key="..\:/Users/Doristin Samuel/AndroidStudioProjects/Reunion/app/src/main/res/layout/list_meeting_activity.xml" value="0.25" />
+        <entry key="..\:/Users/Doristin Samuel/AndroidStudioProjects/Reunion/app/src/main/res/layout/list_meeting_fragment.xml" value="0.25" />
         <entry key="..\:/Users/Doristin Samuel/AndroidStudioProjects/Reunion/app/src/main/res/layout/meeting_view.xml" value="0.14817629179331307" />
         <entry key="..\:/Users/Doristin Samuel/AndroidStudioProjects/Reunion/app/src/main/res/layout/room_item.xml" value="0.14817629179331307" />
         <entry key="..\:/Users/Doristin Samuel/AndroidStudioProjects/Reunion/app/src/main/res/layout/room_numbers.xml" value="0.14766970618034447" />
