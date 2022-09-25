@@ -1,14 +1,8 @@
 package com.example.reunion;
 
-import static com.example.reunion.ListMeetingFragment.mAddButton;
-import static com.example.reunion.ListMeetingFragment.mMeetings;
-import static com.example.reunion.ListMeetingFragment.recyclerViewAdapter;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,19 +10,19 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
-import android.widget.SearchView;
+
 import android.widget.Toast;
 
-import com.google.android.material.chip.ChipGroup;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
@@ -39,21 +33,67 @@ import java.util.List;
 import model.Reunion;
 
 
-public class ListMeetingActivity extends AppCompatActivity  {
+public class ListMeetingActivity extends AppCompatActivity {
 
-   public static ArrayList<Reunion> filteredlist;
-    public static FragmentTransaction fragmentTransaction;
-    public static FragmentTransaction fragmentTransaction2;
+    public static ArrayList<Reunion> filteredlist;
+    public FloatingActionButton mAddButton;
+    public static RecyclerView recyclerView;
+    static RecyclerViewAdapter recyclerViewAdapter;
+    RecyclerView.LayoutManager layoutManager;
+    public static String[] roomNumbers;
+    public static ArrayList<Reunion> mMeetings;
+
+
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_meeting_activity);
-       fragmentTransaction=getSupportFragmentManager().beginTransaction();
-       fragmentTransaction.replace(R.id.container,new ListMeetingFragment(),null).commit();
+
+        mAddButton = findViewById(R.id.add_button);
+
+        recyclerView = findViewById(R.id.meeting_view);
+        recyclerView.setHasFixedSize(true);
+
+
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        mMeetings = new ArrayList<Reunion>();
+        recyclerViewAdapter = new RecyclerViewAdapter(mMeetings);
+        recyclerView.setAdapter(recyclerViewAdapter);
+
+
+        mAddButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setList(mMeetings);
+                Context context = ListMeetingActivity.this;
+                View view = getLayoutInflater().inflate(R.layout.dialog_design, null
+
+                );
+                roomNumbers = getResources().getStringArray(R.array.room_numbers);
+                AddMeetingDialog.showDialog(view, context, roomNumbers);
+            }
+        });
+
 
     }
+
+
+    public static void setAutoCompleteTextView(AutoCompleteTextView room, Context context, String[] roomNumbers) {
+        ArrayAdapter<String> roomAdapter = new ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, roomNumbers);
+        room.setAdapter(roomAdapter);
+    }
+
+    public static void addmeeting(String meetingRoom, String meetingTopic, String meetingTime, List<String> participants, String meetingDate) {
+
+        mMeetings.add(new Reunion(meetingRoom, meetingTime, meetingTopic, participants, meetingDate));
+        recyclerViewAdapter.notifyDataSetChanged();
+
+
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -64,9 +104,9 @@ public class ListMeetingActivity extends AppCompatActivity  {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id=item.getItemId();
+        int id = item.getItemId();
 
-        switch(id){
+        switch (id) {
             case R.id.room_picker_actions:
                 showRoomDialog();
                 break;
@@ -80,70 +120,71 @@ public class ListMeetingActivity extends AppCompatActivity  {
     }
 
 
-    public void showRoomDialog(){
+    public void showRoomDialog() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(ListMeetingActivity.this);
         alertDialog.setTitle("AlertDialog");
         String[] items = getResources().getStringArray(R.array.room_numbers);
 
         alertDialog.setTitle("Choose Room");
-        alertDialog.setSingleChoiceItems(items,-1,new DialogInterface.OnClickListener(){
+        alertDialog.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
 
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int checkedItem) {
-                        filterByRoom(items[checkedItem]);
-                        dialogInterface.dismiss();
+            @Override
+            public void onClick(DialogInterface dialogInterface, int checkedItem) {
+                filterByRoom(items[checkedItem]);
+                dialogInterface.dismiss();
 
-                    }
-                });
+            }
+        });
 
         AlertDialog alert = alertDialog.create();
         alert.setCanceledOnTouchOutside(false);
         alert.show();
     }
 
-    public void showDateDialog(){
-        Calendar calendar=Calendar.getInstance();
-        DatePickerDialog.OnDateSetListener date=new DatePickerDialog.OnDateSetListener() {
+    public void showDateDialog() {
+        Calendar calendar = Calendar.getInstance();
+        DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
 
-                calendar.set(Calendar.YEAR,year);
+                calendar.set(Calendar.YEAR, year);
                 calendar.set(Calendar.MONTH, month);
-                calendar.set(Calendar.DAY_OF_MONTH,day);
+                calendar.set(Calendar.DAY_OF_MONTH, day);
 
                 SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yy",
                         java.util.Locale.getDefault());
-                filterByDate(dateFormat.format(calendar.getTime ()));
+                filterByDate(dateFormat.format(calendar.getTime()));
 
             }
 
         };
 
         new DatePickerDialog(this, date, calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)).show();
+                calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
 
 
-            }
+    }
 
-    private void filterByRoom(String text) {
+    public static ArrayList<Reunion> filterByRoom(String text) {
         filteredlist = new ArrayList<Reunion>();
 
         for (Reunion item : mMeetings) {
             if (item.getMeetingRoom().toLowerCase().contains(text.toLowerCase())) {
                 filteredlist.add(item);
+                setList(filteredlist);
+            }
+            if (filteredlist.isEmpty()){
+                setList(filteredlist);
+            }else {
+                setList(filteredlist);
             }
         }
-        if (filteredlist.isEmpty()) {
 
-            Toast.makeText(this, "No Data Found..", Toast.LENGTH_SHORT).show();
-        } else {
-            openFilterFragment();
-
-        }
+        return filteredlist;
     }
 
 
-    public void filterByDate(String text) {
+    public static Object filterByDate(String text) {
 
         filteredlist = new ArrayList<Reunion>();
         for (Reunion item : mMeetings) {
@@ -154,30 +195,18 @@ public class ListMeetingActivity extends AppCompatActivity  {
         }
         if (filteredlist.isEmpty()) {
 
-            Toast.makeText(this, "No Data Found..", Toast.LENGTH_SHORT).show();
+            setList(filteredlist);
         } else {
 
-            openFilterFragment();
+            setList(filteredlist);
         }
+        return filteredlist;
     }
 
 
-
-    public void openFilterFragment(){
-        fragmentTransaction=getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.container,new ItemFragment(),null).addToBackStack(null).commit();
-    }
-
-
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    @Override
-    public void onBackPressed(){
-        if (getFragmentManager().getBackStackEntryCount()==0){
-            this.finish();
-        }else {
-            getFragmentManager().popBackStack();
-        }
+    public static void setList(ArrayList<Reunion> choosedList) {
+        recyclerViewAdapter = new RecyclerViewAdapter(choosedList);
+        recyclerView.setAdapter(recyclerViewAdapter);
     }
 
 

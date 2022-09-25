@@ -1,8 +1,8 @@
 package com.example.reunion;
 
-import static com.example.reunion.ItemFragment.mFilteredMeetings;
-import static com.example.reunion.ListMeetingFragment.mMeetings;
-import static com.example.reunion.ListMeetingFragment.setAutoCompleteTextView;
+
+import static com.example.reunion.ListMeetingActivity.mMeetings;
+import static com.example.reunion.ListMeetingActivity.setAutoCompleteTextView;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -33,11 +33,10 @@ import model.Reunion;
 
 public class AddMeetingDialog {
 
-    static Boolean error;
+
     public static ChipGroup chipGroup;
     public static Chip chip;
 
-    //
 
     public static void showDialog(View v, Context context, String[] roomNumbers) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
@@ -99,15 +98,16 @@ public class AddMeetingDialog {
                 }
                 if (meetingRoom.length() == 0 || meetingDate.length() == 0 || meetingTime
                         .length() == 0 || meetingTopic.length() == 0 || chipGroup.getChildCount() < 1) {
-                    Toast.makeText(cont, "Incomplete Meeting Info!" +
+                    Toast.makeText(cont, "Incomplete Meeting Info!"+"     " +
                             "Meeting not added!", Toast.LENGTH_SHORT).show();
                 } else {
-                    ListMeetingFragment.addmeeting(meetingRoom, meetingTime, meetingTopic, participants, meetingDate);
-                    mFilteredMeetings=mMeetings;
-                    Toast.makeText(cont, "New meeting added!", Toast.LENGTH_SHORT).show();
+                    ListMeetingActivity.addmeeting(meetingRoom, meetingTime, meetingTopic, participants, meetingDate);
+                        Toast.makeText(cont, "New meeting added!", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
+
         });
+
         alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

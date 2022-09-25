@@ -1,75 +1,83 @@
 package com.example.reunion;
 
-import static com.example.reunion.ListMeetingFragment.mMeetings;
+import static com.example.reunion.ListMeetingActivity.mMeetings;
+import static com.example.reunion.ListMeetingActivity.roomNumbers;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockio.*;
 
-import org.junit.Before;
 import org.junit.Test;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.Assert.*;
-
 import model.Reunion;
 
-public class LamzoneMeetingUnitTest {
+public class AllFunctionalitiesUnitTest {
 
-    private MeetingApiService service;
 
-    @Before
-    public void setup() {
-        service = DI.getNewInstanceApiService();
-    }
+    public Reunion newMeeting;
 
+    @mock
 
 
     @Test
-    public void removeMeeting() {
-        List<Reunion> meetings = service.getMeetings();
-        Reunion meeting = service.getMeetings().get(0);
-        assertTrue(meetings.contains(meetings));
-        service.removeMeeting(meeting);
-        assertFalse(meetings.contains(meeting));
+    public void createNewMeeting() {
+        List<Reunion> meetings = mMeetings;
+        List<String> emailTest = new ArrayList<>();
+        emailTest.add("sam@gmail.com");
+        newMeeting=new Reunion("Room 3" ,"Reunion test",   "12h 30", emailTest,"06/07/22");
+        meetings.add(newMeeting);
+        assertTrue(meetings.contains(newMeeting));
     }
 
 
-
     @Test
-    public void createMeeting() {
-        Reunion newMeeting;
-        newMeeting=ListMeetingFragment.addmeeting("Room 3" ,"12h 30",   "", "Reunion test", new Date(1586627538),  new ArrayList<>(Arrays.asList(service.getUsers().get(1), service.getUsers().get(3))));
-        assertTrue(mMeetings.contains(service.getMeeting(22)));
-    }
-
-
-
-    @Test
-    public void filterMeetingByRoomIdWithSuccess() {
-        List<Reunion> meetings = ListMeetingActivity.filterByRoom(service.getMeetingRooms().get(0).getId());
+    public void filterMeetingByRoom() {
+        ArrayList<Reunion> meetings;
+       meetings=mMeetings;
+        List<String> emailTest = new ArrayList<>();
+        emailTest.add("sam@gmail.com");
+       newMeeting=new Reunion("Room 3" ,"Reunion test",   "12h 30", emailTest,"06/07/22");
+        meetings.add(newMeeting);
         for(Reunion meeting : meetings){
-            for (String room : ListMeetingFragment.roomNumbers){
-                if (room == room[0]){
-                    assertEquals(meeting.getLocation(), room);
+            for (String room : roomNumbers){
+                if (room == roomNumbers[0]){
+                    assertEquals(ListMeetingActivity.filterByRoom(room), meeting.getMeetingRoom());
                 }else{
-                    assertNotEquals(meeting.getLocation(), room);
+                    assertNotEquals(ListMeetingActivity.filterByRoom(room), meeting);
                 }
             }
         }
     }
 
     @Test
-    public void filterMeetingByDateWithSuccess() {
+    public void filterMeetingByDate() {
         int year = 1970, month = 0, dayOfMonth = 1;
-        List<Reunion> meetings = ListMeetingFragment.filterByDate(year, month, dayOfMonth);
-        Calendar calendar = Calendar.getInstance(); Calendar calendar1 = Calendar.getInstance();
-        calendar.set(year, month, dayOfMonth, 0,0); calendar1.set(year, month, dayOfMonth+1, 0, 0);
-        Date date = calendar.getTime(); Date date1 = calendar1.getTime();
-        for (Reunion meeting : mMeetings) {
-            assertTrue(meeting.getMeetingDate().after(date));
-            assertTrue(meeting.getDate().before(date1));
+        List<Reunion> meetings = mMeetings;
+
+        List<String> emailTest = new ArrayList<>();
+        emailTest.add("sam@gmail.com");
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month, dayOfMonth);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yy",
+                java.util.Locale.getDefault());
+        Date date = calendar.getTime();
+
+        newMeeting=new Reunion("Room 3" ,"Reunion test",   "12h 30", emailTest,dateFormat.format(date));
+        meetings.add(newMeeting);
+        for (Reunion meeting : meetings) {
+            if (dateFormat.format(date)==meeting.getMeetingDate()) {
+                assertEquals(ListMeetingActivity.filterByDate(dateFormat.format(date)), meeting.getMeetingDate());
+            }else {
+                assertNotEquals(ListMeetingActivity.filterByDate(dateFormat.format(date)), meeting.getMeetingDate());
+            }
+
         }
     }
 }

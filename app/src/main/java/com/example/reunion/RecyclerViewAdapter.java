@@ -24,12 +24,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     Context context;
     ArrayList<Reunion> mMeetings;
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+
+
+
+    public  class ViewHolder extends RecyclerView.ViewHolder{
         TextView rowEmails;
         TextView rowDescription;
         ImageButton deleteButton;
         public final ImageView mCircleView;
-        RecyclerViewAdapter adapter;
+        public RecyclerViewAdapter adapter;
+        public int position;
+
+
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -58,6 +64,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
     }
+
 
 
     @NonNull
