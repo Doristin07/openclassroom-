@@ -16,15 +16,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import model.Reunion;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>  {
 
+
     Context context;
     ArrayList<Reunion> mMeetings;
 
-
+    //unit Test method
+    public void removeMeeting(Reunion meetings,RecyclerViewAdapter adapter) {
+        adapter.mMeetings.remove(meetings);
+        adapter.notifyItemRemoved(0);
+    }
 
 
     public  class ViewHolder extends RecyclerView.ViewHolder{
@@ -34,7 +40,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public final ImageView mCircleView;
         public RecyclerViewAdapter adapter;
         public int position;
-
 
 
 

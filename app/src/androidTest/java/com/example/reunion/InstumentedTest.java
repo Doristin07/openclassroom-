@@ -53,13 +53,26 @@ public class InstumentedTest {
         Context appContext = getInstrumentation().getTargetContext();
         assertEquals("com.example.reunion", appContext.getPackageName());
     }
+
     @Test
     public void mMeetingsList_shouldNotBeEmpty() {
         onView(withId(R.id.meeting_view))
                 .check(matches(hasMinimumChildCount(1)));
     }
+
     @Test
-    public void myMeetingList_deleteAction_shouldRemoveItem() {
+    public void addNewMeeting() {
+        int size = mMeetings.size();
+        onView(withId(R.id.add_button)).perform(click());
+        onView(withId(R.id.topic)).perform(click()).perform(typeText("TestSubject"));
+        onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(scrollTo(), PickerActions.setDate(2020,5, 19));
+        onView(withClassName(Matchers.equalTo(TimePicker.class.getName()))).perform(scrollTo(), PickerActions.setTime(12, 50));
+        onView(withText("OK")).perform(click());
+        onView(withId(R.id.chip_group)).check(withItemCount(size+1));
+    }
+
+    @Test
+    public void RemoveMeeting() {
         int size = mMeetings.size();
         onView(withId(R.id.meeting_view)).check(withItemCount(size));
         onView(withId(R.id.meeting_view)).perform(RecyclerViewActions.actionOnItemAtPosition(1, new DeleteViewAction()));
@@ -69,7 +82,7 @@ public class InstumentedTest {
 
 
     @Test
-    public void filterByRoomWithSuccess() {
+    public void filterByRoom() {
         onView(withId(R.id.room_picker_actions)).perform(click());
         onView(ViewMatchers.withText("By Room")).perform(click());
         onView(withText("Rooom 2")).check(matches(isNotChecked())).perform(click());
@@ -77,24 +90,15 @@ public class InstumentedTest {
         onView(withId(R.id.meeting_view)).check(withItemCount(2));
     }
     @Test
-    public void filterByDateWithSuccess() {
+    public void filterByDate() {
         onView(withId(com.google.android.material.R.id.date_picker_actions)).perform(click());
-        onView(ViewMatchers.withText("Par Date")).perform(click());
+        onView(ViewMatchers.withText("By Date")).perform(click());
         onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(1970,1, 19));
         onView(withText("OK")).perform(click());
         onView(withId(R.id.meeting_view)).check(withItemCount(1));
     }
 
 
-    @Test
-    public void addNewMeetingWithSuccess() {
-        int size = mMeetings.size();
-        onView(withId(R.id.add_button)).perform(click());
-        onView(withId(R.id.topic)).perform(click()).perform(typeText("TestSubject"));
-        onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(scrollTo(), PickerActions.setDate(2020,5, 19));
-        onView(withClassName(Matchers.equalTo(TimePicker.class.getName()))).perform(scrollTo(), PickerActions.setTime(12, 50));
-        onView(withText("OK")).perform(click());
-        onView(withId(R.id.chip_group)).check(withItemCount(size+1));
-    }
+
 
 }

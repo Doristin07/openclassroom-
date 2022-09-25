@@ -1,6 +1,8 @@
 package com.example.reunion;
 
 
+import static model.Reunion.srandomColor;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,6 +12,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -42,8 +45,7 @@ public class ListMeetingActivity extends AppCompatActivity {
     RecyclerView.LayoutManager layoutManager;
     public static String[] roomNumbers;
     public static ArrayList<Reunion> mMeetings;
-
-
+    private int mColor;
 
 
     @Override
@@ -171,7 +173,7 @@ public class ListMeetingActivity extends AppCompatActivity {
         for (Reunion item : mMeetings) {
             if (item.getMeetingRoom().toLowerCase().contains(text.toLowerCase())) {
                 filteredlist.add(item);
-                setList(filteredlist);
+
             }
             if (filteredlist.isEmpty()){
                 setList(filteredlist);
@@ -180,7 +182,7 @@ public class ListMeetingActivity extends AppCompatActivity {
             }
         }
 
-        return filteredlist;
+        return filteredlist  ;
     }
 
 
@@ -208,6 +210,7 @@ public class ListMeetingActivity extends AppCompatActivity {
         recyclerViewAdapter = new RecyclerViewAdapter(choosedList);
         recyclerView.setAdapter(recyclerViewAdapter);
     }
+
 
 
 }

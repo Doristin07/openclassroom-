@@ -13,8 +13,8 @@ public class Reunion {
     private String mMeetingSubject;
     private List<String> mparticipants;
     private String mMeetingDate;
-    private static Random srandomColor = new Random();
-    private Integer mColor;
+    public static Random srandomColor = new Random();
+    private static Integer mColor;
 
 
     public Reunion(String meetingRoom, String meetingTime, String meetingSubject, List<String> participants, String MeetingDate) {
@@ -81,8 +81,9 @@ public class Reunion {
     public void setMeetingDate(String meetingDate) {
         mMeetingDate = meetingDate;
     }
-    public Integer getColor() {
+    public static Integer getColor() {
         return mColor;
     }
+
 
 }
