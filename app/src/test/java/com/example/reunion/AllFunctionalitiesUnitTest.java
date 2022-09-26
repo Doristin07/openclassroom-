@@ -6,14 +6,24 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
+
+import static model.Reunion.mColor;
+
+import org.junit.Before;
 import org.junit.Test;
-
+import org.junit.runner.RunWith;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import org.mockito.Mockito.*;
+
+
+
 
 import model.Reunion;
 
@@ -22,6 +32,11 @@ public class AllFunctionalitiesUnitTest {
 
     public Reunion newMeeting;
     private RecyclerViewAdapter adapter;
+    @Before
+    public void setup(){
+
+    }
+
 
     @Test
     public void createNewMeeting() {

@@ -39,13 +39,13 @@ import model.Reunion;
 public class ListMeetingActivity extends AppCompatActivity {
 
     public static ArrayList<Reunion> filteredlist;
+    private static int mColor;
     public FloatingActionButton mAddButton;
     public static RecyclerView recyclerView;
     static RecyclerViewAdapter recyclerViewAdapter;
     RecyclerView.LayoutManager layoutManager;
     public static String[] roomNumbers;
     public static ArrayList<Reunion> mMeetings;
-    private int mColor;
 
 
     @Override
@@ -69,13 +69,14 @@ public class ListMeetingActivity extends AppCompatActivity {
         mAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setList(mMeetings);
-                Context context = ListMeetingActivity.this;
-                View view = getLayoutInflater().inflate(R.layout.dialog_design, null
 
-                );
+                Context context = ListMeetingActivity.this;
+                View view = getLayoutInflater().inflate(R.layout.dialog_design, null);
+
                 roomNumbers = getResources().getStringArray(R.array.room_numbers);
                 AddMeetingDialog.showDialog(view, context, roomNumbers);
+
+                setList(mMeetings);
             }
         });
 
@@ -84,7 +85,7 @@ public class ListMeetingActivity extends AppCompatActivity {
 
 
     public static void setAutoCompleteTextView(AutoCompleteTextView room, Context context, String[] roomNumbers) {
-        ArrayAdapter<String> roomAdapter = new ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, roomNumbers);
+        ArrayAdapter<String> roomAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, roomNumbers);
         room.setAdapter(roomAdapter);
     }
 
@@ -95,6 +96,7 @@ public class ListMeetingActivity extends AppCompatActivity {
 
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -203,6 +205,17 @@ public class ListMeetingActivity extends AppCompatActivity {
             setList(filteredlist);
         }
         return filteredlist;
+    }
+
+    public static Integer getColor() {
+        // Generate random color
+        mColor = Color.argb(
+                srandomColor.nextInt(255),
+                srandomColor.nextInt(255),
+                srandomColor.nextInt(255),
+                srandomColor.nextInt(255));
+
+        return mColor;
     }
 
 

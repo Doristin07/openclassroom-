@@ -197,17 +197,15 @@ public class AddMeetingDialog {
                     chipGroup.addView(chip);
                     emailEdit.setText("");
                 }
-
+                chip.setCheckedIconResource(R.drawable.ic_baseline_close_24);
+                chip.setCloseIconEnabled(true);
+                chip.setOnCloseIconClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        chipGroup.removeView(chip);
+                    }
+                });
             }
-            chip.setCheckedIconResource(R.drawable.ic_baseline_close_24);
-            chip.setCloseIconEnabled(true);
-            chip.setOnCloseIconClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    chipGroup.removeView(chip);
-                }
-            });
-
             return false;
 
         });

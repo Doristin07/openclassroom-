@@ -92,7 +92,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         holder.rowEmails.setText(TextUtils.join(", ",
                 meeting.getParticipants()));
-        ((GradientDrawable)holder.mCircleView.getBackground()).setColor(meeting.getColor());
+        ((GradientDrawable)holder.mCircleView.getBackground()).setColor(ListMeetingActivity.getColor());
     }
 
 
