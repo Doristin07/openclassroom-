@@ -1,5 +1,7 @@
 package com.example.reunion;
 
+import static com.example.reunion.ListMeetingActivity.getColor;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
@@ -92,7 +94,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         holder.rowEmails.setText(TextUtils.join(", ",
                 meeting.getParticipants()));
-        ((GradientDrawable)holder.mCircleView.getBackground()).setColor(ListMeetingActivity.getColor());
+        ((GradientDrawable)holder.mCircleView.getBackground()).setColor(getColor());
     }
 
 

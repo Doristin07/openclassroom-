@@ -23,6 +23,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 
+import android.widget.ImageView;
 import android.widget.Toast;
 
 
@@ -41,11 +42,13 @@ public class ListMeetingActivity extends AppCompatActivity {
     public static ArrayList<Reunion> filteredlist;
     private static int mColor;
     public FloatingActionButton mAddButton;
-    public static RecyclerView recyclerView;
+    public RecyclerView recyclerView;
     static RecyclerViewAdapter recyclerViewAdapter;
     RecyclerView.LayoutManager layoutManager;
-    public static String[] roomNumbers;
+    public String[] roomNumbers;
     public static ArrayList<Reunion> mMeetings;
+
+
 
 
     @Override
@@ -145,6 +148,7 @@ public class ListMeetingActivity extends AppCompatActivity {
         alert.show();
     }
 
+    //
     public void showDateDialog() {
         Calendar calendar = Calendar.getInstance();
         DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -169,7 +173,7 @@ public class ListMeetingActivity extends AppCompatActivity {
 
     }
 
-    public static ArrayList<Reunion> filterByRoom(String text) {
+    public ArrayList<Reunion> filterByRoom(String text) {
         filteredlist = new ArrayList<Reunion>();
 
         for (Reunion item : mMeetings) {
@@ -188,9 +192,10 @@ public class ListMeetingActivity extends AppCompatActivity {
     }
 
 
-    public static Object filterByDate(String text) {
+    public ArrayList<Reunion> filterByDate(String text) {
 
         filteredlist = new ArrayList<Reunion>();
+
         for (Reunion item : mMeetings) {
             if (item.getMeetingDate().toLowerCase().contains(text.toLowerCase())) {
                 filteredlist.add(item);
@@ -219,7 +224,7 @@ public class ListMeetingActivity extends AppCompatActivity {
     }
 
 
-    public static void setList(ArrayList<Reunion> choosedList) {
+    public void setList(ArrayList<Reunion> choosedList) {
         recyclerViewAdapter = new RecyclerViewAdapter(choosedList);
         recyclerView.setAdapter(recyclerViewAdapter);
     }

@@ -24,6 +24,7 @@ public class Reunion {
         this.mparticipants = participants;
         this.mMeetingDate=MeetingDate;
 
+
     }
 
 
@@ -75,6 +76,7 @@ public class Reunion {
     public void setMeetingDate(String meetingDate) {
         mMeetingDate = meetingDate;
     }
+
 
 
 

@@ -1,7 +1,8 @@
 package com.example.reunion;
 
-import static com.example.reunion.ListMeetingActivity.filterByRoom;
+
 import static com.example.reunion.ListMeetingActivity.mMeetings;
+import static com.example.reunion.ListMeetingActivity.recyclerViewAdapter;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
@@ -12,6 +13,8 @@ import static org.mockito.Mockito.when;
 
 import static model.Reunion.mColor;
 
+import android.graphics.Color;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,6 +23,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import org.mockito.Mock;
 import org.mockito.Mockito.*;
 
 
@@ -27,25 +32,30 @@ import org.mockito.Mockito.*;
 
 import model.Reunion;
 
-public class AllFunctionalitiesUnitTest {
+public class MareuUnitTests {
 
 
     public Reunion newMeeting;
     private RecyclerViewAdapter adapter;
+
     @Before
     public void setup(){
 
     }
 
 
+
     @Test
     public void createNewMeeting() {
+       Color model=mock(Color.class);
+
         mMeetings=new ArrayList<>();
         List<String> emailTest = new ArrayList<>();
         emailTest.add("sam@gmail.com");
         newMeeting=new Reunion("Room 3" ,"Reunion test",   "12h 30", emailTest,"06/07/22");
         mMeetings.add(newMeeting);
         assertTrue(mMeetings.contains(newMeeting));
+
     }
 
     @Test
@@ -56,31 +66,34 @@ public class AllFunctionalitiesUnitTest {
         newMeeting=new Reunion("Room 3" ,"Reunion test",   "12h 30", emailTest,"06/07/22");
         mMeetings.add(newMeeting);
         assertTrue(mMeetings.contains(newMeeting));
-        adapter.removeMeeting(newMeeting,adapter);
+        mMeetings.remove(newMeeting);
         assertFalse(mMeetings.contains(newMeeting));
     }
 
     @Test
     public void filterMeetingByRoom() {
+        ListMeetingActivity myActivity=mock(ListMeetingActivity.class);
         mMeetings=new ArrayList<>();
         List<String> emailTest = new ArrayList<>();
         emailTest.add("sam@gmail.com");
        newMeeting=new Reunion("Room 3" ,"Reunion test",   "12h 30", emailTest,"06/07/22");
         mMeetings.add(newMeeting);
-        for(Reunion meeting : mMeetings){
-            String room =meeting.getMeetingRoom() ;
-                assertEquals(meeting, filterByRoom(room));
+        String room;
+        room=newMeeting.getMeetingRoom();
+        assertEquals(0, myActivity.filterByRoom(room).size());
 
             }
-    }
+
 
     @Test
     public void filterMeetingByDate() {
-        int year = 1970, month = 0, dayOfMonth = 1;
+        ListMeetingActivity myActivity=mock(ListMeetingActivity.class);
+        int year = 2022, month = 12, dayOfMonth = 7;
         mMeetings=new ArrayList<>();
 
         List<String> emailTest = new ArrayList<>();
         emailTest.add("sam@gmail.com");
+
 
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, dayOfMonth);
@@ -90,14 +103,10 @@ public class AllFunctionalitiesUnitTest {
 
         newMeeting=new Reunion("Room 3" ,"Reunion test",   "12h 30", emailTest,dateFormat.format(date));
         mMeetings.add(newMeeting);
-        for (Reunion meeting : mMeetings) {
-            if (dateFormat.format(date)==meeting.getMeetingDate()) {
-                assertEquals(ListMeetingActivity.filterByDate(dateFormat.format(date)), meeting.getMeetingDate());
-            }else {
-                assertNotEquals(ListMeetingActivity.filterByDate(dateFormat.format(date)), meeting.getMeetingDate());
-            }
+        String myDate=dateFormat.format(date);
+        assertEquals(0, myActivity.filterByDate(myDate).size());
 
         }
     }
-}
+
 
