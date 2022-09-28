@@ -1,8 +1,6 @@
 package com.example.reunion;
 
 
-import static model.Reunion.srandomColor;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,8 +10,8 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,9 +20,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
-
-import android.widget.ImageView;
-import android.widget.Toast;
 
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -61,6 +56,7 @@ public class ListMeetingActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.meeting_view);
         recyclerView.setHasFixedSize(true);
 
+        AddMeetingDialog myDialog=new AddMeetingDialog();
 
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -77,7 +73,7 @@ public class ListMeetingActivity extends AppCompatActivity {
                 View view = getLayoutInflater().inflate(R.layout.dialog_design, null);
 
                 roomNumbers = getResources().getStringArray(R.array.room_numbers);
-                AddMeetingDialog.showDialog(view, context, roomNumbers);
+                myDialog.showDialog(view, context, roomNumbers);
 
                 setList(mMeetings);
             }
@@ -87,16 +83,21 @@ public class ListMeetingActivity extends AppCompatActivity {
     }
 
 
-    public static void setAutoCompleteTextView(AutoCompleteTextView room, Context context, String[] roomNumbers) {
+
+
+    public void setAutoCompleteTextView(AutoCompleteTextView room, Context context, String[] roomNumbers) {
         ArrayAdapter<String> roomAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, roomNumbers);
         room.setAdapter(roomAdapter);
+
     }
 
-    public static void addmeeting(String meetingRoom, String meetingTopic, String meetingTime, List<String> participants, String meetingDate) {
+    // add new meeting
+    public int addMeeting(String meetingRoom, String meetingTopic, String meetingTime, List<String> participants, String meetingDate) {
 
         mMeetings.add(new Reunion(meetingRoom, meetingTime, meetingTopic, participants, meetingDate));
         recyclerViewAdapter.notifyDataSetChanged();
 
+        return mMeetings.size();
 
     }
 
@@ -127,9 +128,9 @@ public class ListMeetingActivity extends AppCompatActivity {
     }
 
 
+    // Room picker dialog
     public void showRoomDialog() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(ListMeetingActivity.this);
-        alertDialog.setTitle("AlertDialog");
         String[] items = getResources().getStringArray(R.array.room_numbers);
 
         alertDialog.setTitle("Choose Room");
@@ -148,7 +149,7 @@ public class ListMeetingActivity extends AppCompatActivity {
         alert.show();
     }
 
-    //
+    // Date filter dialog
     public void showDateDialog() {
         Calendar calendar = Calendar.getInstance();
         DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -173,6 +174,7 @@ public class ListMeetingActivity extends AppCompatActivity {
 
     }
 
+    //Perform filter by room
     public ArrayList<Reunion> filterByRoom(String text) {
         filteredlist = new ArrayList<Reunion>();
 
@@ -192,6 +194,7 @@ public class ListMeetingActivity extends AppCompatActivity {
     }
 
 
+    //Perform filter by date
     public ArrayList<Reunion> filterByDate(String text) {
 
         filteredlist = new ArrayList<Reunion>();
@@ -212,18 +215,10 @@ public class ListMeetingActivity extends AppCompatActivity {
         return filteredlist;
     }
 
-    public static Integer getColor() {
-        // Generate random color
-        mColor = Color.argb(
-                srandomColor.nextInt(255),
-                srandomColor.nextInt(255),
-                srandomColor.nextInt(255),
-                srandomColor.nextInt(255));
-
-        return mColor;
-    }
 
 
+
+    //set filtered list
     public void setList(ArrayList<Reunion> choosedList) {
         recyclerViewAdapter = new RecyclerViewAdapter(choosedList);
         recyclerView.setAdapter(recyclerViewAdapter);

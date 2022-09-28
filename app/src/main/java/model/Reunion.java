@@ -14,7 +14,7 @@ public class Reunion {
     private List<String> mparticipants;
     private String mMeetingDate;
     public static Random srandomColor = new Random();
-    public static Integer mColor;
+    public Integer mColor;
 
 
     public Reunion(String meetingRoom, String meetingTime, String meetingSubject, List<String> participants, String MeetingDate) {
@@ -24,7 +24,12 @@ public class Reunion {
         this.mparticipants = participants;
         this.mMeetingDate=MeetingDate;
 
-
+        // Generate random color
+        mColor = Color.argb(
+                srandomColor.nextInt(255),
+                srandomColor.nextInt(255),
+                srandomColor.nextInt(255),
+                srandomColor.nextInt(255));
     }
 
 
@@ -77,7 +82,8 @@ public class Reunion {
         mMeetingDate = meetingDate;
     }
 
-
-
+    public int getColor(){
+        return mColor;
+    }
 
 }

@@ -2,7 +2,7 @@ package com.example.reunion;
 
 
 import static com.example.reunion.ListMeetingActivity.mMeetings;
-import static com.example.reunion.ListMeetingActivity.setAutoCompleteTextView;
+
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -36,14 +37,15 @@ public class AddMeetingDialog {
 
     public static ChipGroup chipGroup;
     public static Chip chip;
+    public ListMeetingActivity myActivity=new ListMeetingActivity();
 
 
-    public static void showDialog(View v, Context context, String[] roomNumbers) {
+
+    public void showDialog(View v, Context context, String[] roomNumbers) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 
         //Inflate the dialog_design
         View view = v;
-
         EditText topicEditText, roomEditText, timeEditText, emailEditText, dateEditText;
         topicEditText = view.findViewById(R.id.topic);
         roomEditText = view.findViewById(R.id.room);
@@ -57,8 +59,9 @@ public class AddMeetingDialog {
 
         timePicker(timeEditText, context);
         datePicker(dateEditText, context);
-        setAutoCompleteTextView(room, context, roomNumbers);
+       myActivity.setAutoCompleteTextView(room, context, roomNumbers);
         room.setHint("Room Number");
+
 
         //set the view to dialog
         alertDialogBuilder.setView(view);
@@ -76,7 +79,7 @@ public class AddMeetingDialog {
     }
 
 
-    public static void setDialogButtons(Context cont, AlertDialog.Builder alertDialogBuilder, EditText roomEditText,
+    public void setDialogButtons(Context cont, AlertDialog.Builder alertDialogBuilder, EditText roomEditText,
                                         EditText topicEditText, EditText timeEditText, EditText dateEditText) {
 
         //set Dialog Buttons
@@ -98,10 +101,10 @@ public class AddMeetingDialog {
                 }
                 if (meetingRoom.length() == 0 || meetingDate.length() == 0 || meetingTime
                         .length() == 0 || meetingTopic.length() == 0 || chipGroup.getChildCount() < 1) {
-                    Toast.makeText(cont, "Incomplete Meeting Info!"+"     " +
-                            "Meeting not added!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(cont, "Meeting not added!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(cont, "Incomplete Meeting Info!", Toast.LENGTH_SHORT).show();
                 } else {
-                    ListMeetingActivity.addmeeting(meetingRoom, meetingTime, meetingTopic, participants, meetingDate);
+                    myActivity.addMeeting(meetingRoom, meetingTime, meetingTopic, participants, meetingDate);
                         Toast.makeText(cont, "New meeting added!", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -119,7 +122,7 @@ public class AddMeetingDialog {
     }
 
 
-    public static void timePicker(EditText timeEditText, Context cont2) {
+    public  void timePicker(EditText timeEditText, Context cont2){
         timeEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -137,7 +140,7 @@ public class AddMeetingDialog {
                         } else {
                             amPm = "AM";
                         }
-                        timeEditText.setText(String.format("%02d:%02d", hourOfDay, minutes) + " " + amPm);
+                        timeEditText.setText(String.format("%02d:%02d", hourOfDay, minutes)+" "+amPm);
                     }
                 }, currentHour, currentMinute, false);
 
@@ -148,7 +151,7 @@ public class AddMeetingDialog {
         });
     }
 
-    public static void datePicker(EditText dateEditText, Context cont3) {
+    public void datePicker(EditText dateEditText, Context cont3) {
         Calendar calendar = Calendar.getInstance();
         DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -182,7 +185,8 @@ public class AddMeetingDialog {
     }
 
 
-    public static void addChip(EditText emailEdit, Context cont4) {
+    //Add cip to chipgroup
+    public void addChip(EditText emailEdit, Context cont4) {
 
         emailEdit.setOnKeyListener((v, keyCode, event) -> {
             if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
@@ -212,7 +216,8 @@ public class AddMeetingDialog {
 
     }
 
-    public static void disableButton(EditText edt1, EditText edt2, EditText edt3, EditText edt4, EditText edt5, AlertDialog dialog, Context context) {
+    //disable save button
+    public void disableButton(EditText edt1, EditText edt2, EditText edt3, EditText edt4, EditText edt5, AlertDialog dialog, Context context) {
         final TextWatcher watcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -248,7 +253,8 @@ public class AddMeetingDialog {
 
     }
 
-    public static void checkRoom(EditText edt1, EditText edt2, EditText edt3, Context context, AlertDialog dialog) {
+    //check if room is already booked
+    public void checkRoom(EditText edt1, EditText edt2, EditText edt3, Context context, AlertDialog dialog) {
         for (Reunion item : mMeetings) {
             if (edt1.getText().toString().equals(item.getMeetingRoom()) && edt2.getText().toString().equals(item.getMeetingTime()) &&
                     edt3.getText().toString().equals(item.getMeetingDate())) {

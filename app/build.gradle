@@ -14,6 +14,11 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
+    testOptions{
+        unitTests.returnDefaultValues=true
+    }
+
     allprojects {
         gradle.projectsEvaluated {
             tasks.withType(JavaCompile) {

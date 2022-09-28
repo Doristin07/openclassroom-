@@ -1,6 +1,5 @@
 package com.example.reunion;
 
-import static com.example.reunion.ListMeetingActivity.getColor;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -35,7 +34,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
 
-    public  class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder{
         TextView rowEmails;
         TextView rowDescription;
         ImageButton deleteButton;
@@ -64,6 +63,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
 
     }
+
+
 
     public RecyclerViewAdapter(ArrayList<Reunion> mMeetings){
 
@@ -94,7 +95,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         holder.rowEmails.setText(TextUtils.join(", ",
                 meeting.getParticipants()));
-        ((GradientDrawable)holder.mCircleView.getBackground()).setColor(getColor());
+        ((GradientDrawable)holder.mCircleView.getBackground()).setColor(meeting.getColor());
     }
 
 

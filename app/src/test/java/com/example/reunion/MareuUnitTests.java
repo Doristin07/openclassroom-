@@ -11,7 +11,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 
-import static model.Reunion.mColor;
 
 import android.graphics.Color;
 
@@ -38,36 +37,30 @@ public class MareuUnitTests {
     public Reunion newMeeting;
     private RecyclerViewAdapter adapter;
 
-    @Before
-    public void setup(){
-
-    }
-
-
 
     @Test
     public void createNewMeeting() {
-       Color model=mock(Color.class);
-
+        ListMeetingActivity myActivity=mock(ListMeetingActivity.class);
         mMeetings=new ArrayList<>();
         List<String> emailTest = new ArrayList<>();
         emailTest.add("sam@gmail.com");
-        newMeeting=new Reunion("Room 3" ,"Reunion test",   "12h 30", emailTest,"06/07/22");
-        mMeetings.add(newMeeting);
-        assertTrue(mMeetings.contains(newMeeting));
-
+        when(myActivity.addMeeting("Room 3" ,"Reunion test", "12h 30", emailTest,
+                "06/07/22")).thenReturn(1);
     }
 
     @Test
     public void removeMeeting() {
+        ListMeetingActivity myActivity=mock(ListMeetingActivity.class);
         mMeetings=new ArrayList<>();
         List<String> emailTest = new ArrayList<>();
         emailTest.add("sam@gmail.com");
-        newMeeting=new Reunion("Room 3" ,"Reunion test",   "12h 30", emailTest,"06/07/22");
-        mMeetings.add(newMeeting);
-        assertTrue(mMeetings.contains(newMeeting));
-        mMeetings.remove(newMeeting);
-        assertFalse(mMeetings.contains(newMeeting));
+       myActivity.addMeeting("Room 3" ,"Reunion test", "12h 30", emailTest,"06/07/22");
+
+       for (Reunion item:mMeetings){
+           mMeetings.remove(item);
+           assertFalse(mMeetings.contains(item));
+       }
+
     }
 
     @Test
