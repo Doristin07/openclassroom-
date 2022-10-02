@@ -2,7 +2,6 @@ package com.example.reunion;
 
 
 import static com.example.reunion.ListMeetingActivity.mMeetings;
-import static com.example.reunion.ListMeetingActivity.recyclerViewAdapter;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
@@ -56,8 +55,9 @@ public class MareuUnitTests {
         emailTest.add("sam@gmail.com");
        myActivity.addMeeting("Room 3" ,"Reunion test", "12h 30", emailTest,"06/07/22");
 
+        int position=0;
        for (Reunion item:mMeetings){
-           mMeetings.remove(item);
+           myActivity.deleteMeeting(adapter,position);
            assertFalse(mMeetings.contains(item));
        }
 
@@ -69,11 +69,14 @@ public class MareuUnitTests {
         mMeetings=new ArrayList<>();
         List<String> emailTest = new ArrayList<>();
         emailTest.add("sam@gmail.com");
-       newMeeting=new Reunion("Room 3" ,"Reunion test",   "12h 30", emailTest,"06/07/22");
-        mMeetings.add(newMeeting);
+        myActivity.addMeeting("Room 3" ,"Reunion test",   "12h 30", emailTest,"06/07/22");
         String room;
-        room=newMeeting.getMeetingRoom();
-        assertEquals(0, myActivity.filterByRoom(room).size());
+
+        for (Reunion item:mMeetings){
+            room=item.getMeetingRoom();
+            assertEquals(1, myActivity.filterByRoom(room).size());
+        }
+
 
             }
 
@@ -94,10 +97,16 @@ public class MareuUnitTests {
                 java.util.Locale.getDefault());
         Date date = calendar.getTime();
 
-        newMeeting=new Reunion("Room 3" ,"Reunion test",   "12h 30", emailTest,dateFormat.format(date));
-        mMeetings.add(newMeeting);
         String myDate=dateFormat.format(date);
-        assertEquals(0, myActivity.filterByDate(myDate).size());
+        myActivity.addMeeting("Room 3" ,"Reunion test",   "12h 30", emailTest,myDate);
+
+        String testDate;
+        for (Reunion item:mMeetings){
+           testDate =item.getMeetingDate();
+            assertEquals(1, myActivity.filterByRoom(testDate).size());
+        }
+
+
 
         }
     }

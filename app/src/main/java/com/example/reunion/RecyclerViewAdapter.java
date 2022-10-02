@@ -28,10 +28,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     ArrayList<Reunion> mMeetings;
 
     //unit Test method
-    public void removeMeeting(Reunion meetings,RecyclerViewAdapter adapter) {
-        adapter.mMeetings.remove(meetings);
-        adapter.notifyItemRemoved(0);
-    }
+
 
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -46,12 +43,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            ListMeetingActivity myActivity=new ListMeetingActivity();
             rowEmails=itemView.findViewById(R.id.emails);
             mCircleView=itemView.findViewById(R.id.circle_item);
             rowDescription=itemView.findViewById(R.id.description);
             itemView.findViewById(R.id.delete).setOnClickListener(view -> {
-                adapter.mMeetings.remove(getAdapterPosition());
-                adapter.notifyItemRemoved(getAdapterPosition());
+                myActivity.deleteMeeting(adapter,getAdapterPosition());
             });
 
 

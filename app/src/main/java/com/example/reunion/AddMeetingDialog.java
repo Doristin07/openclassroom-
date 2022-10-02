@@ -24,9 +24,11 @@ import android.widget.Toast;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -55,11 +57,15 @@ public class AddMeetingDialog {
         AutoCompleteTextView room = view.findViewById(R.id.room);
         chipGroup = view.findViewById(R.id.chip_group);
 
+        //Set my buttons
         setDialogButtons(context.getApplicationContext(), alertDialogBuilder, roomEditText, timeEditText, topicEditText, dateEditText);
 
-        timePicker(timeEditText, context);
+        //Show Time and Date Picker
+        timeEditText.setOnClickListener(view1 -> {timePicker(timeEditText, context);});
         datePicker(dateEditText, context);
-       myActivity.setAutoCompleteTextView(room, context, roomNumbers);
+
+        //Set AutocompleteTextView
+        myActivity.setAutoCompleteTextView(room, context, roomNumbers);
         room.setHint("Room Number");
 
 
@@ -71,16 +77,21 @@ public class AddMeetingDialog {
         dialog.setCanceledOnTouchOutside(false);
 
         ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+
+        //Disable Save button
         disableButton(roomEditText, topicEditText, timeEditText, dateEditText,
                 emailEditText, dialog, context);
+
+
+        //Add chips to ChipGroup
         addChip(emailEditText, context);
 
 
     }
 
 
-    public void setDialogButtons(Context cont, AlertDialog.Builder alertDialogBuilder, EditText roomEditText,
-                                        EditText topicEditText, EditText timeEditText, EditText dateEditText) {
+    public void setDialogButtons(Context context, AlertDialog.Builder alertDialogBuilder, EditText roomEditText,
+                                 EditText topicEditText, EditText timeEditText, EditText dateEditText) {
 
         //set Dialog Buttons
         alertDialogBuilder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
@@ -96,25 +107,24 @@ public class AddMeetingDialog {
                 List<String> participants = new ArrayList<>();
                 for (int j = 0; j < chipGroup.getChildCount(); j++) {
                     chip = (Chip) chipGroup.getChildAt(j);
-                    Log.i("outside if", i + "chip=" + chip.getText().toString());
                     participants.add(chip.getText().toString());
                 }
                 if (meetingRoom.length() == 0 || meetingDate.length() == 0 || meetingTime
                         .length() == 0 || meetingTopic.length() == 0 || chipGroup.getChildCount() < 1) {
-                    Toast.makeText(cont, "Meeting not added!", Toast.LENGTH_LONG).show();
-                    Toast.makeText(cont, "Incomplete Meeting Info!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText( context, "Meeting not added!", Toast.LENGTH_LONG).show();
+                    Toast.makeText( context, "Incomplete Meeting Info!", Toast.LENGTH_SHORT).show();
                 } else {
                     myActivity.addMeeting(meetingRoom, meetingTime, meetingTopic, participants, meetingDate);
-                        Toast.makeText(cont, "New meeting added!", Toast.LENGTH_SHORT).show();
-                    }
+                    Toast.makeText( context, "New meeting added!", Toast.LENGTH_SHORT).show();
                 }
+            }
 
         });
 
         alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(cont, "Adding a meeting has been abort", Toast.LENGTH_SHORT).show();
+                Toast.makeText( context, "Adding a meeting has been abort", Toast.LENGTH_SHORT).show();
             }
 
         });
@@ -122,33 +132,27 @@ public class AddMeetingDialog {
     }
 
 
-    public  void timePicker(EditText timeEditText, Context cont2){
-        timeEditText.setOnClickListener(new View.OnClickListener() {
+    public void timePicker (EditText timeEditText, Context context) {
+
+        Calendar calendar = Calendar.getInstance();
+        int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+        int currentMinute = calendar.get(Calendar.MINUTE);
+
+        TimePickerDialog timePickerDialog = new TimePickerDialog(context, new TimePickerDialog.OnTimeSetListener() {
             @Override
-            public void onClick(View view) {
+            public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
+                Calendar time = Calendar.getInstance();
+                time.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                time.set(Calendar.MINUTE, minutes);
 
-                Calendar calendar = Calendar.getInstance();
-                int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
-                int currentMinute = calendar.get(Calendar.MINUTE);
-
-                TimePickerDialog timePickerDialog = new TimePickerDialog(cont2, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
-                        String amPm;
-                        if (hourOfDay >= 12) {
-                            amPm = "PM";
-                        } else {
-                            amPm = "AM";
-                        }
-                        timeEditText.setText(String.format("%02d:%02d", hourOfDay, minutes)+" "+amPm);
-                    }
-                }, currentHour, currentMinute, false);
-
-                timePickerDialog.show();
-
+                timeEditText.setText(DateFormat.getTimeFormat(context).format(time.getTime()));
 
             }
-        });
+        }, currentHour, currentMinute, false);
+        timePickerDialog.show();
+
+
+
     }
 
     public void datePicker(EditText dateEditText, Context cont3) {
@@ -177,7 +181,7 @@ public class AddMeetingDialog {
                 DatePickerDialog datePickerDialog=new DatePickerDialog(cont3, date, calendar.get(Calendar.YEAR),
                         calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis()-1000);
-                        datePickerDialog.show();
+                datePickerDialog.show();
 
             }
         });
@@ -221,16 +225,15 @@ public class AddMeetingDialog {
         final TextWatcher watcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
+                checkRoom(edt1,edt4,context,dialog);
                 if (edt1.getText().toString().length() == 0 || edt2.getText().toString().length() == 0 || edt3.getText().toString()
                         .length() == 0 || edt4.getText().toString().length() == 0 || chipGroup.getChildCount() < 1) {
 
@@ -239,7 +242,6 @@ public class AddMeetingDialog {
                     ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
                 }
 
-                checkRoom(edt1, edt3, edt4, context, dialog);
 
             }
 
@@ -254,19 +256,21 @@ public class AddMeetingDialog {
     }
 
     //check if room is already booked
-    public void checkRoom(EditText edt1, EditText edt2, EditText edt3, Context context, AlertDialog dialog) {
+    public void checkRoom(EditText roomEditText,EditText dateEditText, Context context, AlertDialog dialog) {
         for (Reunion item : mMeetings) {
-            if (edt1.getText().toString().equals(item.getMeetingRoom()) && edt2.getText().toString().equals(item.getMeetingTime()) &&
-                    edt3.getText().toString().equals(item.getMeetingDate())) {
+            if (roomEditText.getText().toString().equals(item.getMeetingRoom()) &&
+                    dateEditText.getText().toString().equals(item.getMeetingDate())) {
                 Toast.makeText(context, "This meeting room is already booked", Toast.LENGTH_SHORT).show();
                 ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
-                edt1.setError("Room already booked");
+                roomEditText.setError("Room already booked");
 
             } else {
                 ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                roomEditText.setError(null);
             }
+
+
+
         }
     }
 }
-
-

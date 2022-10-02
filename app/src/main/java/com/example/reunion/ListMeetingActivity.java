@@ -38,11 +38,10 @@ public class ListMeetingActivity extends AppCompatActivity {
     private static int mColor;
     public FloatingActionButton mAddButton;
     public RecyclerView recyclerView;
-    static RecyclerViewAdapter recyclerViewAdapter;
+    public static RecyclerViewAdapter recyclerViewAdapter;
     RecyclerView.LayoutManager layoutManager;
     public String[] roomNumbers;
     public static ArrayList<Reunion> mMeetings;
-
 
 
 
@@ -84,20 +83,9 @@ public class ListMeetingActivity extends AppCompatActivity {
 
 
 
-
     public void setAutoCompleteTextView(AutoCompleteTextView room, Context context, String[] roomNumbers) {
         ArrayAdapter<String> roomAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, roomNumbers);
         room.setAdapter(roomAdapter);
-
-    }
-
-    // add new meeting
-    public int addMeeting(String meetingRoom, String meetingTopic, String meetingTime, List<String> participants, String meetingDate) {
-
-        mMeetings.add(new Reunion(meetingRoom, meetingTime, meetingTopic, participants, meetingDate));
-        recyclerViewAdapter.notifyDataSetChanged();
-
-        return mMeetings.size();
 
     }
 
@@ -148,6 +136,23 @@ public class ListMeetingActivity extends AppCompatActivity {
         alert.setCanceledOnTouchOutside(false);
         alert.show();
     }
+
+    // add new meeting
+    public int addMeeting(String meetingRoom, String meetingTopic, String meetingTime, List<String> participants, String meetingDate) {
+
+        mMeetings.add(new Reunion(meetingRoom, meetingTime, meetingTopic, participants, meetingDate));
+        recyclerViewAdapter.notifyDataSetChanged();
+
+        return mMeetings.size();
+
+    }
+
+    //delete meeting
+    public void deleteMeeting(RecyclerViewAdapter adapter, int position) {
+        adapter.mMeetings.remove(position);
+        adapter.notifyItemRemoved(position);
+    }
+
 
     // Date filter dialog
     public void showDateDialog() {
