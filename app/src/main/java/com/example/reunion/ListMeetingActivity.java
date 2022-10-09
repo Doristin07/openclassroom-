@@ -11,7 +11,6 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -34,14 +33,13 @@ import model.Reunion;
 
 public class ListMeetingActivity extends AppCompatActivity {
 
-    public static ArrayList<Reunion> filteredlist;
-    private static int mColor;
+    public static ArrayList<Reunion> mFilteredlist;
     public FloatingActionButton mAddButton;
-    public RecyclerView recyclerView;
-    public static RecyclerViewAdapter recyclerViewAdapter;
-    RecyclerView.LayoutManager layoutManager;
+    public RecyclerView mRecyclerView;
+    public static RecyclerViewAdapter mRecyclerViewAdapter;
+    RecyclerView.LayoutManager mLayoutManager;
     public String[] roomNumbers;
-    public static ArrayList<Reunion> mMeetings;
+    public static ArrayList<Reunion> sMeetings;
 
 
 
@@ -52,16 +50,16 @@ public class ListMeetingActivity extends AppCompatActivity {
 
         mAddButton = findViewById(R.id.add_button);
 
-        recyclerView = findViewById(R.id.meeting_view);
-        recyclerView.setHasFixedSize(true);
+        mRecyclerView = findViewById(R.id.meeting_view);
+        mRecyclerView.setHasFixedSize(true);
 
         AddMeetingDialog myDialog=new AddMeetingDialog();
 
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        mMeetings = new ArrayList<Reunion>();
-        recyclerViewAdapter = new RecyclerViewAdapter(mMeetings);
-        recyclerView.setAdapter(recyclerViewAdapter);
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        sMeetings = new ArrayList<Reunion>();
+        mRecyclerViewAdapter = new RecyclerViewAdapter(sMeetings);
+        mRecyclerView.setAdapter(mRecyclerViewAdapter);
 
 
         mAddButton.setOnClickListener(new View.OnClickListener() {
@@ -74,7 +72,7 @@ public class ListMeetingActivity extends AppCompatActivity {
                 roomNumbers = getResources().getStringArray(R.array.room_numbers);
                 myDialog.showDialog(view, context, roomNumbers);
 
-                setList(mMeetings);
+                setList(sMeetings);
             }
         });
 
@@ -140,10 +138,10 @@ public class ListMeetingActivity extends AppCompatActivity {
     // add new meeting
     public int addMeeting(String meetingRoom, String meetingTopic, String meetingTime, List<String> participants, String meetingDate) {
 
-        mMeetings.add(new Reunion(meetingRoom, meetingTime, meetingTopic, participants, meetingDate));
-        recyclerViewAdapter.notifyDataSetChanged();
+        sMeetings.add(new Reunion(meetingRoom, meetingTime, meetingTopic, participants, meetingDate));
+        mRecyclerViewAdapter.notifyDataSetChanged();
 
-        return mMeetings.size();
+        return sMeetings.size();
 
     }
 
@@ -180,44 +178,44 @@ public class ListMeetingActivity extends AppCompatActivity {
     }
 
     //Perform filter by room
-    public ArrayList<Reunion> filterByRoom(String text) {
-        filteredlist = new ArrayList<Reunion>();
+    public int filterByRoom(String text) {
+        mFilteredlist = new ArrayList<Reunion>();
 
-        for (Reunion item : mMeetings) {
+        for (Reunion item : sMeetings) {
             if (item.getMeetingRoom().toLowerCase().contains(text.toLowerCase())) {
-                filteredlist.add(item);
+                mFilteredlist.add(item);
 
             }
-            if (filteredlist.isEmpty()){
-                setList(filteredlist);
+            if (mFilteredlist.isEmpty()){
+                setList(mFilteredlist);
             }else {
-                setList(filteredlist);
+                setList(mFilteredlist);
             }
         }
 
-        return filteredlist  ;
+        return mFilteredlist.size();
     }
 
 
     //Perform filter by date
-    public ArrayList<Reunion> filterByDate(String text) {
+    public int filterByDate(String text) {
 
-        filteredlist = new ArrayList<Reunion>();
+        mFilteredlist = new ArrayList<Reunion>();
 
-        for (Reunion item : mMeetings) {
+        for (Reunion item : sMeetings) {
             if (item.getMeetingDate().toLowerCase().contains(text.toLowerCase())) {
-                filteredlist.add(item);
+                mFilteredlist.add(item);
 
             }
         }
-        if (filteredlist.isEmpty()) {
+        if (mFilteredlist.isEmpty()) {
 
-            setList(filteredlist);
+            setList(mFilteredlist);
         } else {
 
-            setList(filteredlist);
+            setList(mFilteredlist);
         }
-        return filteredlist;
+        return mFilteredlist.size();
     }
 
 
@@ -225,8 +223,8 @@ public class ListMeetingActivity extends AppCompatActivity {
 
     //set filtered list
     public void setList(ArrayList<Reunion> choosedList) {
-        recyclerViewAdapter = new RecyclerViewAdapter(choosedList);
-        recyclerView.setAdapter(recyclerViewAdapter);
+        mRecyclerViewAdapter = new RecyclerViewAdapter(choosedList);
+        mRecyclerView.setAdapter(mRecyclerViewAdapter);
     }
 
 

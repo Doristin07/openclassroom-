@@ -24,12 +24,12 @@ import model.Reunion;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>  {
 
 
-    Context context;
     ArrayList<Reunion> mMeetings;
 
-    //unit Test method
+    public RecyclerViewAdapter(ArrayList<Reunion> mMeetings){
+        this.mMeetings=mMeetings;
 
-
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView rowEmails;
@@ -38,7 +38,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public final ImageView mCircleView;
         public RecyclerViewAdapter adapter;
         public int position;
-
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -61,14 +60,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     }
 
-
-
-    public RecyclerViewAdapter(ArrayList<Reunion> mMeetings){
-
-        this.mMeetings=mMeetings;
-
-
-    }
 
 
 

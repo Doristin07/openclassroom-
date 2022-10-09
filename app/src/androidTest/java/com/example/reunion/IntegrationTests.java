@@ -1,32 +1,24 @@
 package com.example.reunion;
 
-import androidx.test.core.app.ActivityScenario;
-import androidx.test.espresso.Espresso;
 import androidx.test.espresso.contrib.PickerActions;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 
 import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.pressImeActionButton;
-import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.RootMatchers.isPlatformPopup;
 import static androidx.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
-import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.isNotChecked;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
@@ -34,9 +26,8 @@ import static androidx.test.espresso.matcher.ViewMatchers.withSpinnerText;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static com.example.reunion.Actions.ItemCountAssertion.withItemCount;
-import static com.example.reunion.ListMeetingActivity.mMeetings;
+import static com.example.reunion.ListMeetingActivity.sMeetings;
 import static org.hamcrest.Matchers.anything;
-import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.hasToString;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
@@ -76,7 +67,7 @@ public class IntegrationTests {
 
     @Test
     public void addNewMeeting() {
-        int size = mMeetings.size();
+        int size = sMeetings.size();
         onView(withId(R.id.add_button)).perform(click());
         onView(withId(R.id.room)).perform(click());
         onData(allOf(is(instanceOf(String.class)), is("Room 7")))
@@ -96,7 +87,7 @@ public class IntegrationTests {
 
     @Test
     public void RemoveMeeting() {
-        int size = mMeetings.size();
+        int size = sMeetings.size();
         addNewMeeting();
         onView(withId(R.id.meeting_view)).check(withItemCount(size+1));
         onView(withId(R.id.meeting_view)).perform(RecyclerViewActions.actionOnItemAtPosition(0, new DeleteViewAction()));

@@ -1,7 +1,7 @@
 package com.example.reunion;
 
 
-import static com.example.reunion.ListMeetingActivity.mMeetings;
+import static com.example.reunion.ListMeetingActivity.sMeetings;
 
 
 import android.app.AlertDialog;
@@ -233,7 +233,7 @@ public class AddMeetingDialog {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                checkRoom(edt1,edt4,context,dialog);
+
                 if (edt1.getText().toString().length() == 0 || edt2.getText().toString().length() == 0 || edt3.getText().toString()
                         .length() == 0 || edt4.getText().toString().length() == 0 || chipGroup.getChildCount() < 1) {
 
@@ -242,7 +242,7 @@ public class AddMeetingDialog {
                     ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
                 }
 
-
+                checkRoom(edt1,edt4,context,dialog);
             }
 
         };
@@ -257,7 +257,7 @@ public class AddMeetingDialog {
 
     //check if room is already booked
     public void checkRoom(EditText roomEditText,EditText dateEditText, Context context, AlertDialog dialog) {
-        for (Reunion item : mMeetings) {
+        for (Reunion item : sMeetings) {
             if (roomEditText.getText().toString().equals(item.getMeetingRoom()) &&
                     dateEditText.getText().toString().equals(item.getMeetingDate())) {
                 Toast.makeText(context, "This meeting room is already booked", Toast.LENGTH_SHORT).show();

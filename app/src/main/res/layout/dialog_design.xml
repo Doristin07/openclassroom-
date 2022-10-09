@@ -3,118 +3,115 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:gravity="center"
-    >
-
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_margin="@dimen/layout_margin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:text="Add Meeting Info"
-            android:textStyle="bold"
-            android:textSize="@dimen/text_size"
-            android:textColor="@color/white"
-            android:background="@color/purple_500"
-            android:padding="@dimen/textview_padding"
-            android:elevation="15dp"
-            android:layout_gravity="center"
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             >
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_margin="@dimen/layout_margin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-            <AutoCompleteTextView
-                android:id="@+id/room"
-                style="@style/Widget.AppCompat.Spinner.DropDown"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-               android:layout_margin="@dimen/layout_margin"
-                android:background="@drawable/rounded_shape_backgroung"
-                android:cursorVisible="false"
-                android:clickable="false"
-                android:focusable="false"
-                android:inputType="text"
-                android:padding="@dimen/spinner_padding"
-                android:textSize="@dimen/text_size" />
-        </com.google.android.material.textfield.TextInputLayout>
+                        <TextView
+                            android:text="Add Meeting Info"
+                            android:textStyle="bold"
+                            android:textSize="@dimen/text_size"
+                            android:textColor="@color/white"
+                            android:background="@color/purple_500"
+                            android:padding="@dimen/textview_padding"
+                            android:elevation="15dp"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
 
-
-        <EditText
-            android:id="@+id/topic"
-            android:hint="Meeting Topic"
-            android:textSize="@dimen/text_size"
-            android:maxLines="1"
-            android:background="@drawable/rounded_shape_backgroung"
-            android:padding="@dimen/padding"
-            android:maxHeight="1dp"
-            android:textColor="@color/black"
-            android:layout_margin="@dimen/layout_margin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <EditText
-            android:id="@+id/time"
-            android:hint="Meeting Time "
-            android:background="@drawable/rounded_shape_backgroung"
-            android:padding="@dimen/padding"
-            android:textSize="@dimen/text_size"
-            android:focusableInTouchMode="false"
-            android:layout_margin="@dimen/layout_margin"
-            android:cursorVisible="false"
-            android:clickable="false"
-            android:focusable="false"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <EditText
-            android:id="@+id/date"
-            android:hint="Meeting Date"
-            android:inputType="textPersonName"
-            android:textSize="@dimen/text_size"
-            android:background="@drawable/rounded_shape_backgroung"
-            android:padding="@dimen/padding"
-            android:focusableInTouchMode="false"
-            android:layout_margin="@dimen/layout_margin"
-            android:maxLines="1"
-            android:cursorVisible="false"
-            android:clickable="false"
-            android:focusable="false"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <EditText
-            android:id="@+id/emails"
-            android:hint="Meeting participants "
-            android:textSize="@dimen/text_size"
-            android:maxLines="1"
-            android:background="@drawable/rounded_shape_backgroung"
-            android:padding="@dimen/padding"
-           android:layout_margin="@dimen/layout_margin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:imeOptions="actionSend"/>
-
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chip_group"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/chip_group_top_margin"/>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                            >
+                                <AutoCompleteTextView
+                                    android:id="@+id/room"
+                                    style="@style/Widget.AppCompat.Spinner.DropDown"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="@dimen/layout_margin"
+                                    android:background="@drawable/rounded_shape_backgroung"
+                                    android:cursorVisible="false"
+                                    android:clickable="false"
+                                    android:focusable="false"
+                                    android:inputType="text"
+                                    android:padding="@dimen/spinner_padding"
+                                    android:textSize="@dimen/text_size" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
 
-    </LinearLayout>
+                        <EditText
+                            android:id="@+id/topic"
+                            android:hint="Meeting Topic"
+                            android:textSize="@dimen/text_size"
+                            android:maxLines="1"
+                            android:background="@drawable/rounded_shape_backgroung"
+                            android:padding="@dimen/padding"
+                            android:maxHeight="1dp"
+                            android:textColor="@color/black"
+                            android:layout_margin="@dimen/layout_margin"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                        <EditText
+                            android:id="@+id/time"
+                            android:hint="Meeting Time "
+                            android:background="@drawable/rounded_shape_backgroung"
+                            android:padding="@dimen/padding"
+                            android:textSize="@dimen/text_size"
+                            android:focusableInTouchMode="false"
+                            android:layout_margin="@dimen/layout_margin"
+                            android:cursorVisible="false"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
 
-</LinearLayout>
+                        <EditText
+                            android:id="@+id/date"
+                            android:hint="Meeting Date"
+                            android:inputType="textPersonName"
+                            android:textSize="@dimen/text_size"
+                            android:background="@drawable/rounded_shape_backgroung"
+                            android:padding="@dimen/padding"
+                            android:focusableInTouchMode="false"
+                            android:layout_margin="@dimen/layout_margin"
+                            android:maxLines="1"
+                            android:cursorVisible="false"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                        <EditText
+                            android:id="@+id/emails"
+                            android:hint="Meeting participants "
+                            android:textSize="@dimen/text_size"
+                            android:maxLines="1"
+                            android:background="@drawable/rounded_shape_backgroung"
+                            android:padding="@dimen/padding"
+                            android:layout_margin="@dimen/layout_margin"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textEmailAddress"
+                            android:imeOptions="actionSend"/>
+
+                        <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/chip_group"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/chip_group_top_margin"/>
+
+
+                </LinearLayout>
+
+        </LinearLayout>
 </ScrollView>

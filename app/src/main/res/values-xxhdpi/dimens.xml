@@ -3,11 +3,11 @@
     <dimen name="layout_margin">16dp</dimen>
     <dimen name="circle_size">50dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="text_input_layout_margin">30dp</dimen>
+    <dimen name="text_input_layout_margin">20dp</dimen>
     <dimen name="button_margin">16dp</dimen>
     <dimen name="text_size">18sp</dimen>
     <dimen name="text_size_2">22sp</dimen>
-    <dimen name="chip_group_top_margin">16dp</dimen>
+    <dimen name="chip_group_top_margin">10dp</dimen>
     <dimen name="padding">15dp</dimen>
     <dimen name="spinner_padding">13dp</dimen>
     <dimen name="textview_padding">10dp</dimen>
